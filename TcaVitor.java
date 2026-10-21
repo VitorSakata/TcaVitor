@@ -11,6 +11,8 @@ public class TcaVitor{
         int[][] mat = new int[tamanho][tamanho];
 
         for(int i = 0; i < tamanho; i++){
+
+            
             for(int j = 0; j < tamanho; j++){
                 mat[i][j] = valor++;
             }
