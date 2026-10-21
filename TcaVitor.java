@@ -42,7 +42,12 @@ public class TcaVitor{
         }
     }
 
-    
+    public static int EmbaralharTabuleiro(int[][] tabuleiro){
+
+        
+        return 0;
+    }
+
     public static void main(String[] args) {
         
         int [][] tabuleiro;
