@@ -1,0 +1,54 @@
+import java.util.Scanner;
+import java.util.Random;
+
+public class TcaVitor{
+
+    public final static Scanner TECLADO = new Scanner(System.in);
+
+    public static int [][] criarMatrizInteira(int tamanho){
+        int valor = 1;
+
+        int[][] mat = new int[tamanho][tamanho];
+
+        for(int i = 0; i < tamanho; i++){
+            for(int j = 0; j < tamanho; j++){
+                mat[i][j] = valor++;
+            }
+        }
+
+        mat[tamanho - 1][tamanho - 1] = 0;
+
+        return mat;
+    }
+
+    public static void imprimirMatrizInteiro(int[][] mat){
+        int linhas, colunas;
+        linhas = mat.length;
+        colunas = mat[0].length;
+
+        System.out.printf("\nTabuleiro: %d x %d\n",linhas, colunas);
+
+        System.out.printf("\n");
+
+        for(int i = 0; i < linhas; i++){
+            for(int j = 0; j < colunas; j++){
+                if(mat[i][j] == 0){
+                    System.out.print("\t");
+                }else{
+                System.out.printf("%2d\t", mat[i][j]);
+                }
+            }
+            System.out.println("\n");
+        }
+    }
+
+    
+    public static void main(String[] args) {
+        
+        int [][] tabuleiro;
+
+        tabuleiro = criarMatrizInteira(4);
+
+        imprimirMatrizInteiro(tabuleiro);
+    }
+}
