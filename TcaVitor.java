@@ -11,6 +11,10 @@ public class TcaVitor{
         return TECLADO.nextInt();
     }
 
+    public static String lerTexto(){
+        return TECLADO.nextLine();
+    }
+
     //criar um tabuleiro ja resolvido para que embaralhemos depois
     public static int [][] criarMatrizInteira(int tamanho){
         int valor = 1;
@@ -59,13 +63,14 @@ public class TcaVitor{
     //função para mover a peça
     public static int MoverPeca(int[][] tabuleiro){
 
-        int i;
-        int j;
-        int auxiliar;
+        Char movimento;
 
-        System.out.println("qual peça deseja mover? Diga a linha e a coluna (0-3)");
-        i = lerInteiro();
-        j = lerInteiro();
+        System.out.println("qual peça deseja mover? Diga a direção(W A S D");
+        movimento = lerTexto();
+
+        if(movimento == 'w' || movimento == 'W'){
+
+        }
 
         return 0;
     }
