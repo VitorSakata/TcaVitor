@@ -11,8 +11,11 @@ public class TcaVitor{
         return TECLADO.nextInt();
     }
 
-    public static String lerTexto(){
-        return TECLADO.nextLine();
+    public static char lerCaractere(){
+        char valor;
+        // pega o primeiro caractere digitado
+        valor = TECLADO.next().charAt(0);
+        return valor;
     }
 
     //criar um tabuleiro ja resolvido para que embaralhemos depois
