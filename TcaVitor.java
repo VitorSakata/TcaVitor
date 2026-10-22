@@ -1,4 +1,5 @@
 //Vitor e Caleb
+//git config --global user.email/name "nome/email"
 import java.util.Scanner;
 import java.util.Random;
 
