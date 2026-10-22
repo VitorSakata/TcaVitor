@@ -55,12 +55,13 @@ public class TcaVitor{
 
         int i;
         int j;
+        int auxiliar;
 
-        System.out.println("qual peça deseja mover,, diga a linha e a coluna?");
+        System.out.println("qual peça deseja mover? Diga a linha e a coluna (0-3)");
         i = lerInteiro();
         j = lerInteiro();
 
-        
+        if(tabuleiro[][])
 
         return 0;
     }
@@ -69,7 +70,7 @@ public class TcaVitor{
         
         int [][] tabuleiro;
 
-        tabuleiro = criarMatrizInteira(5);
+        tabuleiro = criarMatrizInteira(4);
 
         imprimirMatrizInteiro(tabuleiro);
     }
