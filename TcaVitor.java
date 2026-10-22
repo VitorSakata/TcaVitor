@@ -64,8 +64,6 @@ public class TcaVitor{
         i = lerInteiro();
         j = lerInteiro();
 
-        if(tabuleiro[][])
-
         return 0;
     }
     
