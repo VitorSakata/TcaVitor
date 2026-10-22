@@ -5,14 +5,16 @@ public class TcaVitor{
 
     public final static Scanner TECLADO = new Scanner(System.in);
 
+    public static int lerInteiro(){
+        return TECLADO.nextInt();
+    }
+
     public static int [][] criarMatrizInteira(int tamanho){
         int valor = 1;
 
         int[][] mat = new int[tamanho][tamanho];
 
         for(int i = 0; i < tamanho; i++){
-
-            
             for(int j = 0; j < tamanho; j++){
                 mat[i][j] = valor++;
             }
@@ -28,11 +30,12 @@ public class TcaVitor{
         linhas = mat.length;
         colunas = mat[0].length;
 
-        System.out.printf("\nTabuleiro: %d x %d\n",linhas, colunas);
+        System.out.printf("\n\t\t\t\t\t\t\t\t\tTabuleiro: %d x %d\n",linhas, colunas);
 
         System.out.printf("\n");
 
         for(int i = 0; i < linhas; i++){
+            System.out.printf("\t\t\t\t\t\t\t\t\t");
             for(int j = 0; j < colunas; j++){
                 if(mat[i][j] == 0){
                     System.out.print("\t");
@@ -45,8 +48,20 @@ public class TcaVitor{
     }
 
     public static int EmbaralharTabuleiro(int[][] tabuleiro){
+        return 0;
+    }
+
+    public static int MoverPeca(int[][] tabuleiro){
+
+        int i;
+        int j;
+
+        System.out.println("qual peça deseja mover,, diga a linha e a coluna?");
+        i = lerInteiro();
+        j = lerInteiro();
 
         
+
         return 0;
     }
 
@@ -54,7 +69,7 @@ public class TcaVitor{
         
         int [][] tabuleiro;
 
-        tabuleiro = criarMatrizInteira(4);
+        tabuleiro = criarMatrizInteira(5);
 
         imprimirMatrizInteiro(tabuleiro);
     }
