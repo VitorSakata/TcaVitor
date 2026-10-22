@@ -56,6 +56,7 @@ public class TcaVitor{
         return 0;
     }
 
+    //função para mover a peça
     public static int MoverPeca(int[][] tabuleiro){
 
         int i;
