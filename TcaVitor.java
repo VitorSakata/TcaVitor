@@ -3,21 +3,13 @@ import java.util.Random;
 
 public class TcaVitor{
 
-
-
-
-
-
-
-
-    
-
     public final static Scanner TECLADO = new Scanner(System.in);
 
     public static int lerInteiro(){
         return TECLADO.nextInt();
     }
 
+    //criar um tabuleiro ja resolvido para que embaralhemos depois
     public static int [][] criarMatrizInteira(int tamanho){
         int valor = 1;
 
@@ -34,6 +26,7 @@ public class TcaVitor{
         return mat;
     }
 
+    //imprime o tabuleiro
     public static void imprimirMatrizInteiro(int[][] mat){
         int linhas, colunas;
         linhas = mat.length;
@@ -56,6 +49,7 @@ public class TcaVitor{
         }
     }
 
+    //usa a matriz ja feita e embaralha ela
     public static int EmbaralharTabuleiro(int[][] tabuleiro){
         return 0;
     }
@@ -74,7 +68,7 @@ public class TcaVitor{
 
         return 0;
     }
-
+    
     public static void main(String[] args) {
         
         int [][] tabuleiro;
