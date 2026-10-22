@@ -76,5 +76,12 @@ public class TcaVitor{
         tabuleiro = criarMatrizInteira(4);
 
         imprimirMatrizInteiro(tabuleiro);
+
+        System.out.println("   __ _____                            _           \n" + //
+                        "  / /|___  |  _ __ ___  ___  ___ _ __ | |__   __ _ \n" + //
+                        " | '_ \\ / /  | '__/ _ \\/ __|/ _ \\ '_ \\| '_ \\ / _` |\n" + //
+                        " | (_) / /   | | |  __/\\__ \\  __/ | | | | | | (_| |\n" + //
+                        "  \\___/_/    |_|  \\___||___/\\___|_| |_|_| |_|\\__,_|\n" + //
+                        "                                                   ");
     }
 }
