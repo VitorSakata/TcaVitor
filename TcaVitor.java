@@ -3,6 +3,15 @@ import java.util.Random;
 
 public class TcaVitor{
 
+
+
+
+
+
+
+
+    
+
     public final static Scanner TECLADO = new Scanner(System.in);
 
     public static int lerInteiro(){
