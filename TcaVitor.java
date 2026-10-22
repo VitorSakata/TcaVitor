@@ -64,18 +64,37 @@ public class TcaVitor{
     }
 
     //função para mover a peça
-    public static int MoverPeca(int[][] tabuleiro){
+    public static int[][] MoverPeca(int[][] tabuleiro){
 
-        Char movimento;
+        char movimento;
+        int linha0;
+        int coluna0;
+        int auxiliar;
+        int n;
+        int m;
 
-        System.out.println("qual peça deseja mover? Diga a direção(W A S D");
-        movimento = lerTexto();
-
-        if(movimento == 'w' || movimento == 'W'){
-
+        for(int i = 0; i < tabuleiro.length; i++){
+            for(int j = 0; j < tabuleiro[0].length; j++){
+                if(tabuleiro[i][j] == 0){
+                    linha0 = n;
+                    coluna0 = m;
+                }
+            }
         }
 
-        return 0;
+        System.out.println("qual peça deseja mover? Diga a direção(W A S D");
+        movimento = lerCaractere();
+
+        switch(movimento){
+            case 'w': 
+            case 'W':
+                tabuleiro[linha0 + 1][coluna0] = tabuleiro[n][m];
+                break;
+            default:
+                break;
+        }
+
+        return tabuleiro;
     }
     
     public static void main(String[] args) {
