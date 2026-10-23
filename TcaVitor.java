@@ -2,6 +2,8 @@
 //git config --global user.email/name "nome/email"
 import java.util.Scanner;
 import java.util.Random;
+import com.sun.jna.Library;
+import com.sun.jna.Native;
 
 public class TcaVitor{
 
@@ -76,8 +78,7 @@ public class TcaVitor{
         for(int i = 0; i < tabuleiro.length; i++){
             for(int j = 0; j < tabuleiro[0].length; j++){
                 if(tabuleiro[i][j] == 0){
-                    linha0 = n;
-                    coluna0 = m;
+                    KeyboardManager.pressionouTecla();
                 }
             }
         }
@@ -88,7 +89,7 @@ public class TcaVitor{
         switch(movimento){
             case 'w': 
             case 'W':
-                tabuleiro[linha0 + 1][coluna0] = tabuleiro[n][m];
+
                 break;
             default:
                 break;
