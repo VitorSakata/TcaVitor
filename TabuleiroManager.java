@@ -43,5 +43,5 @@ public class TabuleiroManager {
         return 0;
     }
 
-    
+
 }

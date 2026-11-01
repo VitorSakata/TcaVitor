@@ -84,8 +84,34 @@ public class KeboardManager{
         System.out.println("Use A, D, W, S para mover o personagem. Pressione ESC para sair.");
     }
 
-    public static int[][] MoverPeca(int[][] tabuleiro){
+        public static int[][] MoverPeca(int[][] tabuleiro){
+
+        int linhas,colunas;
+
+        for(int i = 0; i < tabuleiro.length; i++){
+            for(int j = 0; j < tabuleiro[0].length; j++){
+                if(tabuleiro[i][j] == 0){
+                    linhas = i;
+                    colunas = j;
+                }
+            }
+        }
+
+        switch(tabuleiro[linhas][colunas]){
+            case 'w':
+            case 'W':
+
+                break;
+            case 's':
+                break;
+            case 'a':
+                break;
+            case 'd':
+                break;
+            case 27:
+                System.exit(0);
+        }
         
-    return tabuleiro;
+        return tabuleiro;
     }
 }

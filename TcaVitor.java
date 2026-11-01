@@ -17,16 +17,8 @@ public class TcaVitor{
 
         return tabuleiro;
     }
-
-    //funçao que limpa o terminal
-    public static void limparConsole() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
     
     public static void main(String[] args) {
-
-        limparConsole();
 
         int[][] tabuleiro = TabuleiroManager.criarMatrizInteira(4);
 
