@@ -108,10 +108,9 @@ public class KeboardManager{
         int moverLinha = linhas;
         int moverColuna = colunas;
 
-        System.out.println("mova a peça(w, a, s, d): ");
-
         char tecla = lerTecla();
         limparConsole();
+        SoundManager.tocarSom("Sons/som1.wav", true);
 
         switch (tecla) {
     case 'w':
@@ -134,11 +133,13 @@ public class KeboardManager{
         System.exit(0);
         }
 
-        if (moverLinha >= 0 && moverLinha < tabuleiro.length
-            && moverColuna >= 0 && moverColuna < tabuleiro[0].length) {
+        if (moverLinha < 0) moverLinha = 0;
+        if (moverLinha > tabuleiro.length - 1) moverLinha = tabuleiro.length - 1;
+        if (moverColuna < 0) moverColuna = 0;
+        if (moverColuna > tabuleiro[0].length - 1) moverColuna = tabuleiro[0].length - 1;
+
         tabuleiro[linhas][colunas] = tabuleiro[moverLinha][moverColuna];
         tabuleiro[moverLinha][moverColuna] = 0;
-        }
 
         System.out.println("Tabuleiro atualizado:");
         TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
