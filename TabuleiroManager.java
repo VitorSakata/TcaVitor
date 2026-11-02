@@ -1,9 +1,20 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class TabuleiroManager {
+
+    public static Scanner TECLADO = new Scanner(System.in);
+
+    public static int lerinteiro(){
+        return TECLADO.nextInt();
+    }
     
     public static int [][] criarMatrizInteira(int tamanho){
         int valor = 1;
+
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\nDigite o tamanho do tabuleiro (ex: 3 para 3x3, 4 para 4x4):");
+
+        tamanho = lerinteiro();
 
         int[][] mat = new int[tamanho][tamanho];
 
@@ -26,12 +37,12 @@ public class TabuleiroManager {
 
         System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 
-        System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tTabuleiro: %d x %d\n",linhas, colunas);
+        System.out.printf("Tabuleiro: %d x %d\n\n",linhas, colunas);
 
         System.out.printf("\n");
 
         for(int i = 0; i < linhas; i++){
-            System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t");
+            System.out.printf("");
             for(int j = 0; j < colunas; j++){
                 if(mat[i][j] == 0){
                     System.out.print("\t");
