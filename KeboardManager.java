@@ -1,5 +1,6 @@
 import com.sun.jna.Library;
 import com.sun.jna.Native;
+import java.util.Scanner;
 
 public class KeboardManager{
 
@@ -8,6 +9,8 @@ public class KeboardManager{
         int _kbhit();
         int _getch();
     }
+
+    public final static Scanner TECLADO = new Scanner(System.in);
 
     static boolean windows = System.getProperty("os.name").toLowerCase().contains("win");
     static boolean tecladoPreparado = false;
@@ -63,6 +66,10 @@ public class KeboardManager{
         System.out.flush();
     }
 
+    public static char lerTecla(){
+        return (char)obtemTeclaPressionada();
+    }
+
     public static void esperar(int milissegundos) {
         try {
             Thread.sleep(milissegundos);
@@ -101,27 +108,71 @@ public class KeboardManager{
         int moverLinha = linhas;
         int moverColuna = colunas;
 
-        System.out.println("mova a peça(w, a, s, d): ");
+        char tecla = lerTecla();
+        limparConsole();
+        SoundManager.tocarSom("Sons/mover.wav", false);
 
-        char tecla = (char) obtemTeclaPressionada();
-
-        switch(tecla){
-            case 'w':
-            case 'W':
-                moverLinha++;
-                break;
-            case 's':
-                moverLinha--;
-                break;
-            case 'a':
-                moverColuna++;
-                break;
-            case 'd':
-                moverColuna--;
-                break;
-            case 27:
-                System.exit(0);
+        switch (tecla) {
+    case 'w':
+    case 'W':
+        moverLinha++;
+        break;
+    case 's':
+    case 'S':
+        moverLinha--;
+        break;
+    case 'a':
+    case 'A':
+        moverColuna++;
+        break;
+    case 'd':
+    case 'D':
+        moverColuna--;
+        break;
+    case 27:
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n                    :.:++=-----=+=:::                                           \n" + //
+                        "                -=--:................:-=-                                       \n" + //
+                        "            .---:........................:=:.                                   \n" + //
+                        "          ---:....................:::::::::--=:                                 \n" + //
+                        "        :-:.............:.-====:.:::::::::.::--=:                               \n" + //
+                        "       +-.........::::::::+%#.::::::::::--::::----:                  .:+*:      \n" + //
+                        "     .-:...:::::::+*%%+::::::::::::::-:-**-==-------            .--::::....--   \n" + //
+                        "    .+:::::::::::#=:::::::::::::::::--##%#=:::------+  .=+=++.=---:::::.....:-  \n" + //
+                        "    =-::::::::::-::::::::::::-------.:+###+---:------+-:::::::=---:::::::...::  \n" + //
+                        "   +---.:::--=-:::::::---------+::...-####+--------=-::::::::::+---:::::::::--  \n" + //
+                        "  :---:::--=-::--------==-:-:...... +%%%%%*-::----=-::::::...::=-=--::::::--.   \n" + //
+                        "  ---------=%%+:.................=#%######+-:::-------:....:::=-:-:=+=-=+.      \n" + //
+                        "  :------:::+%%%#=..........:+#%%%#######*-::::::-=-----====-::::::::---:-      \n" + //
+                        "  :------::::+%%%%%%%%%%#####%%%######%%#+:::::::-------:::::::::::::::.--      \n" + //
+                        "  :------:::::=%%%%%%%%%####%%%%###%%%%%+:::::--:-=----:...::::::-:::.:=+       \n" + //
+                        "  --------:::::=#%%%%%%%####%%%#*==++##=:::::-----:=----=:::::::::::-=--:       \n" + //
+                        "  :-------:::-=--=-::-=%###+=+++*=++*+-::::::---::::=-----:-++++-:-:--::=       \n" + //
+                        "   =--------=::--::::::+%*===+++++++-::::::::---::::-=----:...::::::::--        \n" + //
+                        "    =-----:=:::::::::==+==--+++*+-:---:::::::::::::::-=.+=-...::::::-=          \n" + //
+                        "    .=-----:::::::::---::::---------::::::::::::::::--:     --:::-.             \n" + //
+                        "     :=----::::+:..::=:::::-+::::::::::::::::::::::---                          \n" + //
+                        "    .----::+:::::::::::::--:::::::::::::::::::::::-=:                           \n" + //
+                        "    .-:--:::::::::::::::-=:::::::::::::::::::::::-+.                            \n" + //
+                        "     .:...--::::::::::::--:::::::::::::::::::::--:                              \n" + //
+                        "            +=:::::::..:+::::::::::::::::::::---                                \n" + //
+                        "             .=--::...:=::::::::::::::::::--=.                                  \n" + //
+                        "                .===+=--::::::::::::------.                         .           \n" + //
+                        "                     .:.=+=------=+-.:.             . . ...  .   ......  .      \n" + //
+                        "                                                    .   .... .. . . . .  ... .  \n" + //
+                        "");
+        SoundManager.tocarSom("Sons/esc.wav", true);
+        System.exit(0);
         }
+
+        if (moverLinha < 0) moverLinha = 0;
+        if (moverLinha > tabuleiro.length - 1) moverLinha = tabuleiro.length - 1;
+        if (moverColuna < 0) moverColuna = 0;
+        if (moverColuna > tabuleiro[0].length - 1) moverColuna = tabuleiro[0].length - 1;
+
+        tabuleiro[linhas][colunas] = tabuleiro[moverLinha][moverColuna];
+        tabuleiro[moverLinha][moverColuna] = 0;
+
+        TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
         
         return tabuleiro;
     }

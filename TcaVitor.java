@@ -26,6 +26,8 @@ public class TcaVitor{
 
         TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
 
-        KeyboardManager.MoverPeca(tabuleiro);
+        while (true) {
+            tabuleiro = KeboardManager.MoverPeca(tabuleiro);
+        }
     }
 }
