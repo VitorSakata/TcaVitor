@@ -111,6 +111,7 @@ public class KeboardManager{
         System.out.println("mova a peça(w, a, s, d): ");
 
         char tecla = lerTecla();
+        limparConsole();
 
         switch (tecla) {
     case 'w':
