@@ -1,12 +1,13 @@
 import java.util.Random;
 
 public class TabuleiroManager {
-    
+    //cria a matriz com o tamanho escolhido pelo usuário, e preenche ela com os valores de 1 até o tamanho da matriz - 1, e coloca 0 na última posição;
     public static int [][] criarMatrizInteira(int tamanho){
         int valor = 1;
-
+        
         int[][] mat = new int[tamanho][tamanho];
 
+        //percorre a matriz e preenche ela com os valores de 1 até o tamanho da matriz - 1, e coloca 0 na última posição;
         for(int i = 0; i < tamanho; i++){
             for(int j = 0; j < tamanho; j++){
                 mat[i][j] = valor++;
@@ -20,6 +21,7 @@ public class TabuleiroManager {
 
     //imprime o tabuleiro
     public static void imprimirMatrizInteiro(int[][] mat){
+        //Guarda a quantidade de linhas e colunas da matriz, assim a função pode imprimir qualquer tamanho de matriz, não só 4x4;
         int linhas, colunas;
         linhas = mat.length;
         colunas = mat[0].length;
@@ -30,9 +32,12 @@ public class TabuleiroManager {
 
         System.out.printf("\n");
 
+        //percorre as linhas da matriz, e para cada linha percorre as colunas, imprimindo o valor da posição atual;
         for(int i = 0; i < linhas; i++){
             System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t");
             for(int j = 0; j < colunas; j++){
+
+                //verifica se a posição atual é a peça vazia, se for, imprime um espaço em branco, caso contrario imprime o valor da posição;
                 if(mat[i][j] == 0){
                     System.out.print("\t");
                 }else{
