@@ -25,5 +25,7 @@ public class TcaVitor{
         TabuleiroManager.embaralharTabuleiroInteiro(tabuleiro);
 
         TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
+
+        KeyboardManager.MoverPeca(tabuleiro);
     }
 }
