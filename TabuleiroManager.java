@@ -73,13 +73,17 @@ public class TabuleiroManager {
         for(int i = 0; i < movimentos; i++){
             int direçao = random.nextInt(4);
 
+            //Calcula onde o vizinho da peça vazia está, somando a variação da direção com a posição da atual da peça vazia;
             int novaLinhaVazia = linhasVazia + direçaoLinha[direçao];
             int novaColunaVazia = colunasVazia + direçaoColuna[direçao];
 
+            //Verifica se a posição do vizinho da peça vazia é válida, ou seja, se ele está dentro da matriz;
             if(novaLinhaVazia >= 0 && novaLinhaVazia < tamanho && novaColunaVazia >= 0 && novaColunaVazia < tamanho){
+                //Troca. A primeira linha leva o valor da peça vizinha para a posição da peça vazia, e a segunda linha coloca 0 na casa do vizinho;
                 tabuleiro[linhasVazia][colunasVazia] = tabuleiro[novaLinhaVazia][novaColunaVazia];
                 tabuleiro[novaLinhaVazia][novaColunaVazia] = 0;
 
+                //Atualiza a posição da peça vazia para a nova posição;
                 linhasVazia = novaLinhaVazia;
                 colunasVazia = novaColunaVazia;
             }
