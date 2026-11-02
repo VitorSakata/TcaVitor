@@ -21,12 +21,14 @@ public class TabuleiroManager {
         linhas = mat.length;
         colunas = mat[0].length;
 
-        System.out.printf("\n\t\t\t\t\t\t\t\t\tTabuleiro: %d x %d\n",linhas, colunas);
+        System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n");
+
+        System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tTabuleiro: %d x %d\n",linhas, colunas);
 
         System.out.printf("\n");
 
         for(int i = 0; i < linhas; i++){
-            System.out.printf("\t\t\t\t\t\t\t\t\t");
+            System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t");
             for(int j = 0; j < colunas; j++){
                 if(mat[i][j] == 0){
                     System.out.print("\t");
