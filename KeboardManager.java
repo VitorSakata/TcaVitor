@@ -1,5 +1,8 @@
 import com.sun.jna.Library;
 import com.sun.jna.Native;
+import com.sun.jna.Pointer;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Scanner;
 
 public class KeboardManager{
@@ -8,6 +11,12 @@ public class KeboardManager{
         Crt INSTANCE = Native.load("msvcrt", Crt.class);
         int _kbhit();
         int _getch();
+    }
+
+    public interface Kernel32 extends Library {
+        Kernel32 INSTANCE = Native.load("kernel32", Kernel32.class);
+        Pointer GetStdHandle(int tipo);
+        boolean GetConsoleScreenBufferInfo(Pointer console, byte[] info);
     }
 
     public final static Scanner TECLADO = new Scanner(System.in);
@@ -64,6 +73,63 @@ public class KeboardManager{
     public static void limparConsole() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    // retorna {colunas, linhas} da janela do terminal
+    public static int[] tamanhoTerminal() {
+        try {
+            if (windows) {
+                byte[] info = new byte[22];
+                Pointer console = Kernel32.INSTANCE.GetStdHandle(-11); // -11: saída do console
+                if (Kernel32.INSTANCE.GetConsoleScreenBufferInfo(console, info)) {
+                    ByteBuffer dados = ByteBuffer.wrap(info).order(ByteOrder.LITTLE_ENDIAN);
+                    int colunas = dados.getShort(14) - dados.getShort(10) + 1;
+                    int linhas = dados.getShort(16) - dados.getShort(12) + 1;
+                    return new int[]{colunas, linhas};
+                }
+            } else {
+                Process stty = new ProcessBuilder("sh", "-c", "stty size < /dev/tty").start();
+                String[] tamanho = new String(stty.getInputStream().readAllBytes()).trim().split(" ");
+                return new int[]{Integer.parseInt(tamanho[1]), Integer.parseInt(tamanho[0])};
+            }
+        } catch (Exception e) {
+            // se não conseguir medir, usa o tamanho padrão abaixo
+        }
+        return new int[]{80, 24};
+    }
+
+    // limpa a tela e imprime os blocos no meio dela, com uma linha em branco entre eles
+    public static void imprimirCentralizado(String... blocos) {
+        int[] tamanho = tamanhoTerminal();
+
+        int totalLinhas = blocos.length - 1;
+        for (String bloco : blocos) {
+            totalLinhas += bloco.split("\n").length;
+        }
+
+        limparConsole();
+
+        for (int i = 0; i < (tamanho[1] - totalLinhas) / 2; i++) {
+            System.out.println();
+        }
+
+        for (int b = 0; b < blocos.length; b++) {
+            String[] linhas = blocos[b].split("\n");
+
+            int maiorLinha = 0;
+            for (String linha : linhas) {
+                maiorLinha = Math.max(maiorLinha, linha.length());
+            }
+
+            String margem = " ".repeat(Math.max(0, (tamanho[0] - maiorLinha) / 2));
+            for (String linha : linhas) {
+                System.out.println(margem + linha);
+            }
+
+            if (b < blocos.length - 1) {
+                System.out.println();
+            }
+        }
     }
 
     public static char lerTecla(){
@@ -130,36 +196,47 @@ public class KeboardManager{
         moverColuna--;
         break;
     case 27:
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n                    :.:++=-----=+=:::                                           \n" + //
-                        "                -=--:................:-=-                                       \n" + //
-                        "            .---:........................:=:.                                   \n" + //
-                        "          ---:....................:::::::::--=:                                 \n" + //
-                        "        :-:.............:.-====:.:::::::::.::--=:                               \n" + //
-                        "       +-.........::::::::+%#.::::::::::--::::----:                  .:+*:      \n" + //
-                        "     .-:...:::::::+*%%+::::::::::::::-:-**-==-------            .--::::....--   \n" + //
-                        "    .+:::::::::::#=:::::::::::::::::--##%#=:::------+  .=+=++.=---:::::.....:-  \n" + //
-                        "    =-::::::::::-::::::::::::-------.:+###+---:------+-:::::::=---:::::::...::  \n" + //
-                        "   +---.:::--=-:::::::---------+::...-####+--------=-::::::::::+---:::::::::--  \n" + //
-                        "  :---:::--=-::--------==-:-:...... +%%%%%*-::----=-::::::...::=-=--::::::--.   \n" + //
-                        "  ---------=%%+:.................=#%######+-:::-------:....:::=-:-:=+=-=+.      \n" + //
-                        "  :------:::+%%%#=..........:+#%%%#######*-::::::-=-----====-::::::::---:-      \n" + //
-                        "  :------::::+%%%%%%%%%%#####%%%######%%#+:::::::-------:::::::::::::::.--      \n" + //
-                        "  :------:::::=%%%%%%%%%####%%%%###%%%%%+:::::--:-=----:...::::::-:::.:=+       \n" + //
-                        "  --------:::::=#%%%%%%%####%%%#*==++##=:::::-----:=----=:::::::::::-=--:       \n" + //
-                        "  :-------:::-=--=-::-=%###+=+++*=++*+-::::::---::::=-----:-++++-:-:--::=       \n" + //
-                        "   =--------=::--::::::+%*===+++++++-::::::::---::::-=----:...::::::::--        \n" + //
-                        "    =-----:=:::::::::==+==--+++*+-:---:::::::::::::::-=.+=-...::::::-=          \n" + //
-                        "    .=-----:::::::::---::::---------::::::::::::::::--:     --:::-.             \n" + //
-                        "     :=----::::+:..::=:::::-+::::::::::::::::::::::---                          \n" + //
-                        "    .----::+:::::::::::::--:::::::::::::::::::::::-=:                           \n" + //
-                        "    .-:--:::::::::::::::-=:::::::::::::::::::::::-+.                            \n" + //
-                        "     .:...--::::::::::::--:::::::::::::::::::::--:                              \n" + //
-                        "            +=:::::::..:+::::::::::::::::::::---                                \n" + //
-                        "             .=--::...:=::::::::::::::::::--=.                                  \n" + //
-                        "                .===+=--::::::::::::------.                         .           \n" + //
-                        "                     .:.=+=------=+-.:.             . . ...  .   ......  .      \n" + //
-                        "                                                    .   .... .. . . . .  ... .  \n" + //
-                        "");
+
+        String tchau = "█████  ███  █   █  ███  █   █\n" +
+                        "  █   █     █   █ █   █ █   █\n" +
+                        "  █   █     █████ █████ █   █\n" +
+                        "  █   █     █   █ █   █ █   █  █\n" +
+                        "  █    ███  █   █ █   █  ███  █";
+        String covarde = " ███   ███  █   █  ███  ████  ████  █████ █\n" +
+                        "█     █   █ █   █ █   █ █   █ █   █ █     █\n" +
+                        "█     █   █ █   █ █████ ████  █   █ ████  █\n" +
+                        "█     █   █  █ █  █   █ █  █  █   █ █\n" +
+                        " ███   ███    █   █   █ █   █ ████  █████ █";
+        String desenho = "                  :.:++=-----=+=:::\n" +
+                        "              -=--:................:-=-\n" +
+                        "          .---:........................:=:.\n" +
+                        "        ---:....................:::::::::--=:\n" +
+                        "      :-:.............:.-====:.:::::::::.::--=:\n" +
+                        "     +-.........::::::::+%#.::::::::::--::::----:                  .:+*:\n" +
+                        "   .-:...:::::::+*%%+::::::::::::::-:-**-==-------            .--::::....--\n" +
+                        "  .+:::::::::::#=:::::::::::::::::--##%#=:::------+  .=+=++.=---:::::.....:-\n" +
+                        "  =-::::::::::-::::::::::::-------.:+###+---:------+-:::::::=---:::::::...::\n" +
+                        " +---.:::--=-:::::::---------+::...-####+--------=-::::::::::+---:::::::::--\n" +
+                        ":---:::--=-::--------==-:-:...... +%%%%%*-::----=-::::::...::=-=--::::::--.\n" +
+                        "---------=%%+:.................=#%######+-:::-------:....:::=-:-:=+=-=+.\n" +
+                        ":------:::+%%%#=..........:+#%%%#######*-::::::-=-----====-::::::::---:-\n" +
+                        ":------::::+%%%%%%%%%%#####%%%######%%#+:::::::-------:::::::::::::::.--\n" +
+                        ":------:::::=%%%%%%%%%####%%%%###%%%%%+:::::--:-=----:...::::::-:::.:=+\n" +
+                        "--------:::::=#%%%%%%%####%%%#*==++##=:::::-----:=----=:::::::::::-=--:\n" +
+                        ":-------:::-=--=-::-=%###+=+++*=++*+-::::::---::::=-----:-++++-:-:--::=\n" +
+                        " =--------=::--::::::+%*===+++++++-::::::::---::::-=----:...::::::::--\n" +
+                        "  =-----:=:::::::::==+==--+++*+-:---:::::::::::::::-=.+=-...::::::-=\n" +
+                        "  .=-----:::::::::---::::---------::::::::::::::::--:     --:::-.\n" +
+                        "   :=----::::+:..::=:::::-+::::::::::::::::::::::---\n" +
+                        "  .----::+:::::::::::::--:::::::::::::::::::::::-=:\n" +
+                        "   .-:--:::::::::::::::-=:::::::::::::::::::::::-+.\n" +
+                        "   .:...--::::::::::::--:::::::::::::::::::::--:\n" +
+                        "         +=:::::::..:+::::::::::::::::::::---\n" +
+                        "           .=--::...:=::::::::::::::::::--=.\n" +
+                        "              .===+=--::::::::::::------.                         .\n" +
+                        "                   .:.=+=------=+-.:.             . . ...  .   ......  .\n" +
+                        "                                                  .   .... .. . . . .  ... .";
+        imprimirCentralizado(tchau, covarde, desenho);
         SoundManager.tocarSom("Sons/esc.wav", true);
         System.exit(0);
         }
