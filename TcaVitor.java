@@ -22,7 +22,7 @@ public class TcaVitor{
 
         int[][] tabuleiro = TabuleiroManager.criarMatrizInteira(4);
 
-        TabuleiroManager.embaralharTabuleiroInteiro(tabuleiro);
+        TabuleiroManager.embaralharTabuleiroInteiro(tabuleiro, 200);
 
         TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
 
