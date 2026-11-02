@@ -1,5 +1,6 @@
 import com.sun.jna.Library;
 import com.sun.jna.Native;
+import java.util.Scanner;
 
 public class KeboardManager{
 
@@ -8,6 +9,8 @@ public class KeboardManager{
         int _kbhit();
         int _getch();
     }
+
+    public final static Scanner TECLADO = new Scanner(System.in);
 
     static boolean windows = System.getProperty("os.name").toLowerCase().contains("win");
     static boolean tecladoPreparado = false;
@@ -63,6 +66,10 @@ public class KeboardManager{
         System.out.flush();
     }
 
+    public static char lerTecla(){
+        return (char)obtemTeclaPressionada();
+    }
+
     public static void esperar(int milissegundos) {
         try {
             Thread.sleep(milissegundos);
@@ -103,25 +110,37 @@ public class KeboardManager{
 
         System.out.println("mova a peça(w, a, s, d): ");
 
-        char tecla = (char) obtemTeclaPressionada();
+        char tecla = lerTecla();
 
-        switch(tecla){
-            case 'w':
-            case 'W':
-                moverLinha++;
-                break;
-            case 's':
-                moverLinha--;
-                break;
-            case 'a':
-                moverColuna++;
-                break;
-            case 'd':
-                moverColuna--;
-                break;
-            case 27:
-                System.exit(0);
+        switch (tecla) {
+    case 'w':
+    case 'W':
+        moverLinha++;
+        break;
+    case 's':
+    case 'S':
+        moverLinha--;
+        break;
+    case 'a':
+    case 'A':
+        moverColuna++;
+        break;
+    case 'd':
+    case 'D':
+        moverColuna--;
+        break;
+    case 27:
+        System.exit(0);
         }
+
+        if (moverLinha >= 0 && moverLinha < tabuleiro.length
+            && moverColuna >= 0 && moverColuna < tabuleiro[0].length) {
+        tabuleiro[linhas][colunas] = tabuleiro[moverLinha][moverColuna];
+        tabuleiro[moverLinha][moverColuna] = 0;
+        }
+
+        System.out.println("Tabuleiro atualizado:");
+        TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
         
         return tabuleiro;
     }
