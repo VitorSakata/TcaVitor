@@ -110,7 +110,7 @@ public class KeboardManager{
 
         char tecla = lerTecla();
         limparConsole();
-        SoundManager.tocarSom("Sons/som1.wav", true);
+        SoundManager.tocarSom("Sons/som1.wav", false);
 
         switch (tecla) {
     case 'w':
