@@ -177,6 +177,7 @@ public class KeboardManager{
 
             SaveGameManager.escreverNoArquivo(Nome_Arquivo, dadosParaSalvar);
         }
+        System.out.println(AsciiArt.msgAdeus);
         SoundManager.tocarSom("Sons/esc.wav", true);
         System.exit(0);
         }

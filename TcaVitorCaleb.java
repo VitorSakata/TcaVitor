@@ -2,20 +2,12 @@
 //git config --global user.email/name "nome/email"
 import java.util.Scanner;
 
-public class TcaVitor{
+public class TcaVitorCaleb{
 
     public final static Scanner TECLADO = new Scanner(System.in);
 
     public static int lerInteiro(){
         return TECLADO.nextInt();
-    }
-
-    //função para mover a peça
-
-    
-    public static int[][] MoverPeca(int[][] tabuleiro){
-
-        return tabuleiro;
     }
     
     public static void main(String[] args) {
