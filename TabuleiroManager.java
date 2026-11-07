@@ -22,7 +22,7 @@ public class TabuleiroManager {
     //transforma o tabuleiro em texto para salvar no arquivo
     public static String tabuleiroParaTexto(int[][] tabuleiro){
 
-        String texto = "";
+        String texto = movimentos + "\n";
 
         for(int i = 0; i < tabuleiro.length; i++){
             for(int j = 0; j < tabuleiro[0].length; j++){
@@ -42,11 +42,13 @@ public class TabuleiroManager {
 
         String[] linhas = texto.trim().split("\n");
 
-        int tamanho = linhas.length;
+        movimentos = Integer.parseInt(linhas[0].trim());
+
+        int tamanho = linhas.length - 1;
         int[][] tabuleiro = new int[tamanho][tamanho];
 
         for(int i = 0; i < tamanho; i++){
-            String[] numeros = linhas[i].trim().split(" ");
+            String[] numeros = linhas[i + 1].trim().split(" ");
 
             for(int j = 0; j < tamanho; j++){
                 tabuleiro[i][j] = Integer.parseInt(numeros[j]);
@@ -69,7 +71,7 @@ public class TabuleiroManager {
 
         System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tMovimentos: %d\n", movimentos);
 
-        System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tTempo: %.1f segundos\n", TabuleiroManager.segundosPassados());
+        System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tTempo: %.1f segundos\n", segundosPassados());
 
         System.out.printf("\n");
 
