@@ -69,6 +69,8 @@ public class TabuleiroManager {
 
         System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tMovimentos: %d\n", movimentos);
 
+        System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tTempo: %.1f segundos\n", TabuleiroManager.segundosPassados());
+
         System.out.printf("\n");
 
         //percorre as linhas da matriz, e para cada linha percorre as colunas, imprimindo o valor da posição atual;
@@ -136,5 +138,23 @@ public class TabuleiroManager {
     }
 
     public static int movimentos = 0;
+
+
+    // ===================================================================
+    // Disponibilizado pelo professor
+    // Guarda o momento em que o cronômetro começou (em milissegundos)
+    static long inicioCronometro = 0;
+
+    // Começa (ou recomeça) a contar o tempo do zero.
+    public static void iniciarCronometro() {
+        inicioCronometro = System.currentTimeMillis();
+    }
+
+    // Retorna quantos segundos passaram desde o iniciarCronometro().
+    // O valor tem casas decimais: 1.5 quer dizer um segundo e meio.
+    public static double segundosPassados() {
+        long agora = System.currentTimeMillis();
+        return (agora - inicioCronometro) / 1000.0;
+    }
 
 }
