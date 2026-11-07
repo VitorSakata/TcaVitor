@@ -67,6 +67,8 @@ public class TabuleiroManager {
 
         System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tTabuleiro: %d x %d\n",linhas, colunas);
 
+        System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tMovimentos: %d\n", movimentos);
+
         System.out.printf("\n");
 
         //percorre as linhas da matriz, e para cada linha percorre as colunas, imprimindo o valor da posição atual;
@@ -133,5 +135,6 @@ public class TabuleiroManager {
         
     }
 
+    public static int movimentos = 0;
 
 }

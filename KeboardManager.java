@@ -185,8 +185,13 @@ public class KeboardManager{
         if (moverColuna < 0) moverColuna = 0;
         if (moverColuna > tabuleiro[0].length - 1) moverColuna = tabuleiro[0].length - 1;
 
-        tabuleiro[linhas][colunas] = tabuleiro[moverLinha][moverColuna];
-        tabuleiro[moverLinha][moverColuna] = 0;
+        if(moverLinha != linhas || moverColuna != colunas){
+            tabuleiro[linhas][colunas] = tabuleiro[moverLinha][moverColuna];
+            tabuleiro[moverLinha][moverColuna] = 0;
+            TabuleiroManager.movimentos++;
+        }
+        /*tabuleiro[linhas][colunas] = tabuleiro[moverLinha][moverColuna];
+        tabuleiro[moverLinha][moverColuna] = 0;*/
 
         TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
         
