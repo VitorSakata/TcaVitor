@@ -98,14 +98,14 @@ public class KeboardManager{
         System.out.println("Use A, D, W, S para mover o personagem. Pressione ESC para sair.");
     }
 
-    //pergunta se o jogador quer voltar ao jogo salvo, se sim carrega o tabuleiro do arquivo, se não cria um novo e embaralha;
+    //pergunta se o jogador quer voltar ao jogo salvo se sim carrega o tabuleiro do arquivo se não cria um novo e embaralha;
     public static int[][] voltarProgresso() {
 
         String Nome_Arquivo = "savegame.txt";
 
-        System.out.println("Deseja retornar ao jogo salvo? (S/N)");
+        System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\tDeseja retornar ao jogo salvo? (S/N)");
 
-        //começa com null, assim se o jogador não quiser carregar o jogo cai no tabuleiro novo;
+        //começa com null assim se o jogador não quiser carregar o jogo cai no tabuleiro novo;
         String salvo = null;
 
         switch(lerTecla()){
@@ -114,7 +114,7 @@ public class KeboardManager{
                 salvo = SaveGameManager.lerDoArquivo(Nome_Arquivo);
         }
 
-        //se o arquivo existir transforma o texto em tabuleiro, caso o contrario cria um tabuleiro novo;
+        //se o arquivo existir transforma o texto em tabuleiro caso o contrario cria um tabuleiro novo;
         if(salvo != null){
             return TabuleiroManager.textoParaTabuleiro(salvo);
         }
@@ -129,8 +129,8 @@ public class KeboardManager{
 
         String Nome_Arquivo = "savegame.txt";
 
-        int linhas = -1;
-        int colunas = -1;
+        int linhas = 0;
+        int colunas = 0;
 
         for(int i = 0; i < tabuleiro.length; i++){
             for(int j = 0; j < tabuleiro[0].length; j++){
@@ -167,7 +167,7 @@ public class KeboardManager{
         break;
     case 27:
 
-        System.out.println("Deseja salvar seu progresso?");
+        System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\tDeseja salvar seu progresso? (S/Esc)");
 
         String dadosParaSalvar = String.valueOf(TabuleiroManager.tabuleiroParaTexto(tabuleiro));
 
@@ -177,6 +177,7 @@ public class KeboardManager{
 
             SaveGameManager.escreverNoArquivo(Nome_Arquivo, dadosParaSalvar);
         }
+        SoundManager.tocarSom("Sons/esc.wav", true);
         System.exit(0);
         }
 
