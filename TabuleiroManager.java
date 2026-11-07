@@ -20,14 +20,14 @@ public class TabuleiroManager {
     }
 
     //transforma o tabuleiro em texto para salvar no arquivo
-    public static String tabuleiroParaTexto(int[][] tabuleiroSave){
+    public static String tabuleiroParaTexto(int[][] tabuleiro){
 
         String texto = "";
 
-        for(int i = 0; i < tabuleiroSave.length; i++){
-            for(int j = 0; j < tabuleiroSave[0].length; j++){
-                texto += tabuleiroSave[i][j];
-                if(j < tabuleiroSave[0].length - 1){
+        for(int i = 0; i < tabuleiro.length; i++){
+            for(int j = 0; j < tabuleiro[0].length; j++){
+                texto += tabuleiro[i][j];
+                if(j < tabuleiro[0].length - 1){
                     texto += " ";
                 }
             }
@@ -35,6 +35,25 @@ public class TabuleiroManager {
         }
 
         return texto;
+    }
+
+    //transforma o texto do arquivo de volta em tabuleiro
+    public static int[][] textoParaTabuleiro(String texto){
+
+        String[] linhas = texto.trim().split("\n");
+
+        int tamanho = linhas.length;
+        int[][] tabuleiro = new int[tamanho][tamanho];
+
+        for(int i = 0; i < tamanho; i++){
+            String[] numeros = linhas[i].trim().split(" ");
+
+            for(int j = 0; j < tamanho; j++){
+                tabuleiro[i][j] = Integer.parseInt(numeros[j]);
+            }
+        }
+
+        return tabuleiro;
     }
 
     //imprime o tabuleiro

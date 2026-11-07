@@ -61,32 +61,4 @@ public class SaveGameManager {
             return null;
         }
     }
-
-    public static void main(String[] args) {
-
-        String NOME_ARQUIVO = "relatorio.txt";
-        
-        // --- 1. ESCRITA ---
-        String dadosParaSalvar = 
-            "Nome: Ogaiht\n" +
-            "Idade: 14\n" +
-            "Turma: 1A";
-        
-        System.out.println("--- 1. Escrevendo no arquivo... ---");
-        // Passando o nome do arquivo no método
-        escreverNoArquivo(NOME_ARQUIVO, dadosParaSalvar);
-
-        // --- 2. LEITURA ---
-        System.out.println("\n--- 2. Lendo do arquivo... ---");
-        // Passando o nome do arquivo no método
-        String dadosLidos = lerDoArquivo(NOME_ARQUIVO);
-        
-        System.out.println("\n*** CONTEÚDO LIDO ***");
-        System.out.println(dadosLidos);
-        
-        // --- 3. TESTE DE ARQUIVO INEXISTENTE ---
-        System.out.println("\n--- 3. Tentando ler arquivo inexistente... ---");
-        String dadosInexistentes = lerDoArquivo("nao_existe.txt");
-        System.out.println("Retorno da função: " + dadosInexistentes);
-    }
 }

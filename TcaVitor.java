@@ -20,9 +20,8 @@ public class TcaVitor{
     
     public static void main(String[] args) {
 
-        int[][] tabuleiro = TabuleiroManager.criarMatrizInteira(4);
-
-        TabuleiroManager.embaralharTabuleiroInteiro(tabuleiro, 200);
+        //chamado antes do while, assim só pergunta uma vez no começo do jogo;
+        int[][] tabuleiro = KeboardManager.voltarProgresso();
 
         TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
 

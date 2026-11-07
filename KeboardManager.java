@@ -98,6 +98,33 @@ public class KeboardManager{
         System.out.println("Use A, D, W, S para mover o personagem. Pressione ESC para sair.");
     }
 
+    //pergunta se o jogador quer voltar ao jogo salvo, se sim carrega o tabuleiro do arquivo, se não cria um novo e embaralha;
+    public static int[][] voltarProgresso() {
+
+        String Nome_Arquivo = "savegame.txt";
+
+        System.out.println("Deseja retornar ao jogo salvo? (S/N)");
+
+        //começa com null, assim se o jogador não quiser carregar o jogo cai no tabuleiro novo;
+        String salvo = null;
+
+        switch(lerTecla()){
+            case 's':
+            case 'S':
+                salvo = SaveGameManager.lerDoArquivo(Nome_Arquivo);
+        }
+
+        //se o arquivo existir transforma o texto em tabuleiro, caso o contrario cria um tabuleiro novo;
+        if(salvo != null){
+            return TabuleiroManager.textoParaTabuleiro(salvo);
+        }
+
+        int[][] tabuleiro = TabuleiroManager.criarMatrizInteira(4);
+        TabuleiroManager.embaralharTabuleiroInteiro(tabuleiro, 200);
+
+        return tabuleiro;
+    }
+
     public static int[][] MoverPeca(int[][] tabuleiro) {
 
         String Nome_Arquivo = "savegame.txt";
