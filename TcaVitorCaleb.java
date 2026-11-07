@@ -12,7 +12,6 @@ public class TcaVitorCaleb{
     
     public static void main(String[] args) {
 
-        //chamado antes do while, assim só pergunta uma vez no começo do jogo;
         int[][] tabuleiro = KeboardManager.voltarProgresso();
         TabuleiroManager.iniciarCronometro();
 
