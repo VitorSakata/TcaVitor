@@ -11,12 +11,30 @@ public class TabuleiroManager {
         for(int i = 0; i < tamanho; i++){
             for(int j = 0; j < tamanho; j++){
                 mat[i][j] = valor++;
-            }
+            }  
         }
 
         mat[tamanho - 1][tamanho - 1] = 0;
 
         return mat;
+    }
+
+    //transforma o tabuleiro em texto para salvar no arquivo
+    public static String tabuleiroParaTexto(int[][] tabuleiroSave){
+
+        String texto = "";
+
+        for(int i = 0; i < tabuleiroSave.length; i++){
+            for(int j = 0; j < tabuleiroSave[0].length; j++){
+                texto += tabuleiroSave[i][j];
+                if(j < tabuleiroSave[0].length - 1){
+                    texto += " ";
+                }
+            }
+            texto += "\n";
+        }
+
+        return texto;
     }
 
     //imprime o tabuleiro
