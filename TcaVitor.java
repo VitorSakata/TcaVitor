@@ -22,6 +22,7 @@ public class TcaVitor{
 
         //chamado antes do while, assim só pergunta uma vez no começo do jogo;
         int[][] tabuleiro = KeboardManager.voltarProgresso();
+        TabuleiroManager.iniciarCronometro();
 
         TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
 
