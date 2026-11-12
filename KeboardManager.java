@@ -103,7 +103,7 @@ public class KeboardManager{
 
         String Nome_Arquivo = "savegame.txt";
 
-        System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\tDeseja retornar ao jogo salvo? (S/N)");
+        System.out.println("Deseja retornar ao jogo salvo? (S/N)");
 
         //começa com null assim se o jogador não quiser carregar o jogo cai no tabuleiro novo;
         String salvo = null;
@@ -167,7 +167,7 @@ public class KeboardManager{
         break;
     case 27:
 
-        System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\tDeseja salvar seu progresso? (S/Esc)");
+        System.out.println("Deseja salvar seu progresso? (S/Esc)");
 
         String dadosParaSalvar = String.valueOf(TabuleiroManager.tabuleiroParaTexto(tabuleiro));
 
@@ -194,6 +194,8 @@ public class KeboardManager{
         }
 
         if(TabuleiroManager.verificarVitoria(tabuleiro) == true){
+            System.out.println(AsciiArt.vitoria);
+
             System.exit(0);
         }
 

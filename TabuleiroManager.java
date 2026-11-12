@@ -65,19 +65,19 @@ public class TabuleiroManager {
         linhas = mat.length;
         colunas = mat[0].length;
 
-        System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.printf("");
 
-        System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tTabuleiro: %d x %d\n",linhas, colunas);
+        System.out.printf("Tabuleiro: %d x %d\n",linhas, colunas);
 
-        System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tMovimentos: %d\n", movimentos);
+        System.out.printf("Movimentos: %d\n", movimentos);
 
-        System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tTempo: %.1f segundos\n", segundosPassados());
+        System.out.printf("Tempo: %.1f segundos\n", segundosPassados());
 
         System.out.printf("\n");
 
         //percorre as linhas da matriz, e para cada linha percorre as colunas, imprimindo o valor da posição atual;
         for(int i = 0; i < linhas; i++){
-            System.out.printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\t");
+            System.out.printf("");
             for(int j = 0; j < colunas; j++){
 
                 //verifica se a posição atual é a peça vazia, se for, imprime um espaço em branco, caso contrario imprime o valor da posição;
