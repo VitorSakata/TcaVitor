@@ -192,8 +192,10 @@ public class KeboardManager{
             tabuleiro[moverLinha][moverColuna] = 0;
             TabuleiroManager.movimentos++;
         }
-        /*tabuleiro[linhas][colunas] = tabuleiro[moverLinha][moverColuna];
-        tabuleiro[moverLinha][moverColuna] = 0;*/
+
+        if(TabuleiroManager.verificarVitoria(tabuleiro) == true){
+            System.exit(0);
+        }
 
         TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
         
