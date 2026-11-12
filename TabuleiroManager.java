@@ -136,8 +136,28 @@ public class TabuleiroManager {
                 colunasVazia = novaColunaVazia;
             }
         }
-        
     }
+
+        public static boolean verificarVitoria(int[][] tabuleiro){
+            int tamanho = tabuleiro.length;
+            int valorEsperado = 1;
+
+            for (int i = 0; i < tamanho; i++) {
+                for (int j = 0; j < tamanho; j++) {
+
+                    if(i == tamanho -1 && j == tamanho -1){
+                        return tabuleiro[i][j] == 0;
+                    }
+
+                    if(tabuleiro[i][j] != valorEsperado){
+                        return false;
+                    }
+                    valorEsperado++;
+                }
+            }
+            return true;
+        
+        }
 
     public static int movimentos = 0;
 
