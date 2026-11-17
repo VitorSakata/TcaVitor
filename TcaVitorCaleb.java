@@ -14,14 +14,7 @@ public class TcaVitorCaleb{
     
     public static void main(String[] args) {
 
-        int[][] tabuleiro = KeboardManager.voltarProgresso();
-        
-        TabuleiroManager.iniciarCronometro();
+    Menu.menuManager();
 
-        TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
-
-        while (true) {
-            tabuleiro = KeboardManager.MoverPeca(tabuleiro);
-        }
     }
 }
