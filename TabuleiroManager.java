@@ -65,13 +65,13 @@ public class TabuleiroManager {
         linhas = mat.length;
         colunas = mat[0].length;
 
-        System.out.printf("");
+        System.out.printf("\n\n\n\n\n\n");
 
-        System.out.printf("Tabuleiro: %d x %d\n",linhas, colunas);
+        System.out.printf("Tabuleiro: %d x %d\n\n",linhas, colunas);
 
-        System.out.printf("Movimentos: %d\n", movimentos);
+        System.out.printf("Movimentos: %d\n\n", movimentos);
 
-        System.out.printf("Tempo: %.1f segundos\n", segundosPassados());
+        System.out.printf("Tempo: %.1f segundos\n\n", segundosPassados());
 
         System.out.printf("\n");
 

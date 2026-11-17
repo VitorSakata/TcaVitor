@@ -150,7 +150,10 @@ public class KeboardManager{
 
             SaveGameManager.escreverNoArquivo(Nome_Arquivo, dadosParaSalvar);
         }
+        limparConsole();
+        Menu.mudarCor(Menu.AMARELO);
         System.out.println(AsciiArt.msgAdeus);
+        Menu.mudarCor(Menu.COR_PADRAO);
         SoundManager.tocarSom("Sons/esc.wav", true);
         System.exit(0);
         }

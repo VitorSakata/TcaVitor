@@ -3,42 +3,6 @@ import com.sun.jna.Native;
 
 public class Menu {
 
-    // ===================================================================
-    // LEITURA DO TECLADO
-    //
-    // Funções para usar no jogo:
-    //   pressionouTecla()       -> true se alguma tecla foi apertada
-    //   obtemTeclaPressionada() -> qual tecla foi apertada (código ASCII)
-    //   s()          -> pausa até o jogador apertar uma tecla
-    //
-    // COMO USAR NO SEU JOGO:s
-    //   1. Crie uma pasta "lib" no seu projeto e copie o arquivo
-    //      jna-5.17.0.jar para ela.
-    //   2. Copie os 2 imports do topo deste arquivo.
-    //   3. Copie tudo o que está entre as linhas de "=====" deste bloco.
-    //      Não precisa entender o que está dentro, só usar as 2 funções.
-    //   4. Rode no terminal (não no console do Eclipse/NetBeans).
-    //
-    // COMO COMPILAR E RODAR PELO TERMINAL (dentro da pasta do projeto):
-    //   Mac e Linux:
-    //     javac -cp "lib/*" Menu.java
-    //     java -cp ".:lib/*" Menu
-    //   Windows:
-    //     javac -cp "lib/*" Menu.java
-    //     java -cp ".;lib/*" Menu
-    //
-    //   O -cp diz onde está o jar do JNA. Para rodar, o "." (pasta atual,
-    //   onde fica o .class) também precisa estar no -cp.
-    //   Atenção ao separador: ":" no Mac/Linux e ";" no Windows.
-    //   No VS Code, o botão Run já inclui os jars da pasta lib.
-    //
-    // Por que tem duas formas dentro das funções?
-    //   - No Windows, usamos a biblioteca "msvcrt" (do Windows) pelo JNA.
-    //   - No Mac e no Linux essa biblioteca não existe. Lá usamos o comando
-    //     "stty" para o terminal entregar as teclas sem esperar o ENTER.
-    // ===================================================================
-
-    // Liga o Java às funções _kbhit e _getch do Windows (só usada no Windows)
     public interface Crt extends Library {
         Crt INSTANCE = Native.load("msvcrt", Crt.class);
         int _kbhit();
@@ -180,24 +144,29 @@ public class Menu {
 
     public static void atualizarMenu(int opcaoSelecionada, String[] opcoes) {
         limparConsole();
+        System.out.println("\n\n\n\n");
+        mudarCor(AMARELO);
+        System.out.println(AsciiArt.titulo);
+        mudarCor(COR_PADRAO);
+        mudarCor(MAGENTA);
+        System.out.println("          ───── o quebra-cabeça dos números ─────");
+        mudarCor(COR_PADRAO);
         System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println("╔═════════════════════╗");
-        System.out.println("║    Menu Principal   ║");
-        System.out.println("╠═════════════════════╣");
+        System.out.println("\t\t╔═════════════════════╗");
+        System.out.println("\t\t║    Menu Principal   ║");
+        System.out.println("\t\t╠═════════════════════╣");
         for (int i = 0; i < opcoes.length; i++) {
             if (i == opcaoSelecionada) {
-                System.out.print("║> ");
+                System.out.print("\t\t║> ");
                 mudarCor(VERDE);
                 System.out.print(opcoes[i]);
                 mudarCor(COR_PADRAO); // volta para a cor padrão
                 System.out.println("  ║");
             } else {
-                System.out.println("║  " + opcoes[i] +"  ║");
+                System.out.println("\t\t║  " + opcoes[i] +"  ║");
             }
         }
-        System.out.println("╚═════════════════════╝");
+        System.out.println("\t\t╚═════════════════════╝");
         System.out.println();
         System.out.println("Use W/S para navegar e ENTER para selecionar. ESC para sair.");
 
@@ -210,6 +179,9 @@ public class Menu {
         switch (opcaoSelecionada) {
             case 0:
                 int[][] tabuleiro = TabuleiroManager.criarMatrizInteira(4);
+
+                TabuleiroManager.embaralharTabuleiroInteiro(tabuleiro, 200);
+                
                 TabuleiroManager.iniciarCronometro();
 
                 TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
