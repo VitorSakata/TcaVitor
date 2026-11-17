@@ -17,10 +17,10 @@ public class SaveGameManager {
             // Grava o conteúdo no arquivo
             writer.write(conteudo);
             
-            System.out.println("Sucesso: Dados salvos em " + nomeArquivo);
+            //System.out.println("Sucesso: Dados salvos em " + nomeArquivo);
             
         } catch (IOException e) {
-            System.err.println("Erro ao escrever no arquivo '" + nomeArquivo + "': " + e.getMessage());
+            //System.err.println("Erro ao escrever no arquivo '" + nomeArquivo + "': " + e.getMessage());
         }
     }
 
@@ -52,12 +52,12 @@ public class SaveGameManager {
                 conteudo.append(linha).append("\n");
             }
             
-            System.out.println("Sucesso: Dados lidos de " + nomeArquivo);
+           // System.out.println("Sucesso: Dados lidos de " + nomeArquivo);
             return conteudo.toString();
 
         } catch (IOException e) {
             // Se o arquivo não existir, retorna a mensagem de erro e uma string vazia/padrão
-            System.err.println("Erro ao ler o arquivo '" + nomeArquivo + "' (ou arquivo não existe): " + e.getMessage());
+            //System.err.println("Erro ao ler o arquivo '" + nomeArquivo + "' (ou arquivo não existe): " + e.getMessage());
             return null;
         }
     }

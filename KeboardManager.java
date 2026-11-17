@@ -168,7 +168,15 @@ public class KeboardManager{
 
         if(TabuleiroManager.verificarVitoria(tabuleiro) == true){
             System.out.println(AsciiArt.vitoria);
-
+            
+            double tempo = TabuleiroManager.segundosPassados();
+            boolean novoRecorde = Recorde.salvarRecorde(tempo);
+            
+            if(novoRecorde){
+                System.out.println("Novo recorde! Tempo: " + tempo + " segundos");
+            } else {
+                System.out.println("Tempo: " + tempo + " segundos");
+            }
             System.exit(0);
         }
 
