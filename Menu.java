@@ -179,6 +179,9 @@ public class Menu {
         switch (opcaoSelecionada) {
             case 0:
                 int[][] tabuleiro = TabuleiroManager.criarMatrizInteira(4);
+
+                TabuleiroManager.embaralharTabuleiroInteiro(tabuleiro, 200);
+                
                 TabuleiroManager.iniciarCronometro();
 
                 TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
