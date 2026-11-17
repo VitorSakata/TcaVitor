@@ -14,7 +14,7 @@ public class TcaVitorCaleb{
     
     public static void main(String[] args) {
 
-    Menu.menuManager();
+        Menu.menuManager();
 
     }
 }

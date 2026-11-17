@@ -219,8 +219,14 @@ public class Menu {
                 }
 
             case 1:
-                System.out.println("\n\nCarregar jogo selecionado.\n\n");
-                break;
+                int[][] tabuleirosalvo = TabuleiroManager.textoParaTabuleiro(SaveGameManager.lerDoArquivo("savegame.txt"));
+                TabuleiroManager.iniciarCronometro();
+
+                TabuleiroManager.imprimirMatrizInteiro(tabuleirosalvo);
+
+                while (true) {
+                    tabuleirosalvo = KeboardManager.MoverPeca(tabuleirosalvo);
+                }
 
             case 2:
                 System.out.println("\n\nConfigurações selecionado.\n\n");
