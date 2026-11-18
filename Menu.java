@@ -168,7 +168,6 @@ public class Menu {
         }
         System.out.println("\t\t╚═════════════════════╝");
         System.out.println();
-        System.out.println("Use W/S para navegar e ENTER para selecionar. ESC para sair.");
 
     }
 
