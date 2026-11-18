@@ -171,6 +171,35 @@ public class Menu {
 
     }
 
+    public static void atualizarMenuConfig(int opcaoSelecionada, String[] opcoes) {
+        limparConsole();
+        System.out.println("\n\n\n\n");
+        mudarCor(AMARELO);
+        System.out.println(AsciiArt.titulo);
+        mudarCor(COR_PADRAO);
+        mudarCor(MAGENTA);
+        System.out.println("          ───── o quebra-cabeça dos números ─────");
+        mudarCor(COR_PADRAO);
+        System.out.println();
+        System.out.println("\t\t╔═════════════════════╗");
+        System.out.println("\t\t║    Configurações    ║");
+        System.out.println("\t\t╠═════════════════════╣");
+        for (int i = 0; i < opcoes.length; i++) {
+            if (i == opcaoSelecionada) {
+                System.out.print("\t\t║> ");
+                mudarCor(VERDE);
+                System.out.print(opcoes[i]);
+                mudarCor(COR_PADRAO); // volta para a cor padrão
+                System.out.println("  ║");
+            } else {
+                System.out.println("\t\t║  " + opcoes[i] +"  ║");
+            }
+        }
+        System.out.println("\t\t╚═════════════════════╝");
+        System.out.println();
+
+    }
+
     public static void executarAcaoMenu(int opcaoSelecionada) {
         
         limparConsole();
@@ -178,13 +207,9 @@ public class Menu {
         switch (opcaoSelecionada) {
             case 0:
                 int[][] tabuleiro = TabuleiroManager.criarMatrizInteira(4);
-
                 TabuleiroManager.embaralharTabuleiroInteiro(tabuleiro, 200);
-                
                 TabuleiroManager.iniciarCronometro();
-
                 TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
-
                 while (true) {
                     tabuleiro = KeboardManager.MoverPeca(tabuleiro);
                 }
@@ -192,15 +217,14 @@ public class Menu {
             case 1:
                 int[][] tabuleirosalvo = TabuleiroManager.textoParaTabuleiro(SaveGameManager.lerDoArquivo("savegame.txt"));
                 TabuleiroManager.iniciarCronometro();
-
                 TabuleiroManager.imprimirMatrizInteiro(tabuleirosalvo);
-
                 while (true) {
                     tabuleirosalvo = KeboardManager.MoverPeca(tabuleirosalvo);
                 }
 
             case 2:
-                System.out.println("\n\nConfigurações selecionado.\n\n");
+                configManager();
+
                 break;
 
             case 3:
@@ -220,6 +244,55 @@ public class Menu {
         limparConsole();
 
     }
+
+    public static void configManager() {
+
+        String [] opcoes = {            
+            "3x3 (Fácil)      ",
+            "4x4 (Médio)      ",
+            "5x5 (Dificil)    ",
+        };
+
+        int opcaoSelecionada = 0;
+        atualizarMenuConfig(  opcaoSelecionada, opcoes);
+        
+        while (true) {            
+            if ( pressionouTecla()) {
+                int ch = obtemTeclaPressionada();     
+                
+                switch (ch) {
+                    case 'w':
+                    case 'W':
+                        opcaoSelecionada--;
+                        if (opcaoSelecionada < 0) {
+                            opcaoSelecionada = opcoes.length - 1;
+                        }
+                        atualizarMenuConfig(opcaoSelecionada, opcoes);
+                        break;  
+
+                    case 's':
+                    case 'S':
+                        opcaoSelecionada++;
+                        if (opcaoSelecionada >= opcoes.length) {
+                            opcaoSelecionada = 0;
+                        }
+                        atualizarMenuConfig(opcaoSelecionada, opcoes);
+                        break;
+
+                    case 13: 
+                        executarAcaoMenu(opcaoSelecionada);
+                        atualizarMenu(  opcaoSelecionada, opcoes);
+                        break;
+
+                    case 27: 
+                        return; 
+                }
+                
+            }
+            
+        }
+
+    }    
 
     public static void menuManager() {
 

@@ -19,6 +19,21 @@ public class TabuleiroManager {
         return mat;
     }
 
+    public static void jogar(){
+
+        int[][] tabuleiro = criarMatrizInteira(4);
+
+        embaralharTabuleiroInteiro(tabuleiro, 200);
+
+        iniciarCronometro();
+
+        imprimirMatrizInteiro(tabuleiro);
+
+        while (true) {
+            tabuleiro = KeboardManager.MoverPeca(tabuleiro);
+        }
+    }
+
     //transforma o tabuleiro em texto para salvar no arquivo
     public static String tabuleiroParaTexto(int[][] tabuleiro){
 
