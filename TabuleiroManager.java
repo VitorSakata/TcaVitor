@@ -1,6 +1,13 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class TabuleiroManager {
+
+    public final static Scanner TECLADO = new Scanner(System.in);
+
+    public static double lerValorReal(){
+        return TECLADO.nextDouble();
+    }
     //cria a matriz com o tamanho escolhido pelo usuário, e preenche ela com os valores de 1 até o tamanho da matriz - 1, e coloca 0 na última posição;
     public static int [][] criarMatrizInteira(int tamanho){
         int valor = 1;
@@ -79,14 +86,17 @@ public class TabuleiroManager {
         int linhas, colunas;
         linhas = mat.length;
         colunas = mat[0].length;
+        
+        double tempoRecorde = Recorde.carregarRecorde();
+        int movimentosRecorde = MovimentosRecorde.carregarRecorde();
 
         System.out.printf("\n\n\n\n\n\n");
 
         System.out.printf("Tabuleiro: %d x %d\n\n",linhas, colunas);
 
-        System.out.printf("Movimentos: %d\n\n", movimentos);
+        System.out.printf("Movimentos: %d\t Movimentos recorde: %d\n\n", movimentos, movimentosRecorde);
 
-        System.out.printf("Tempo: %.1f segundos\n\n", segundosPassados());
+        System.out.printf("Tempo: %.1f segundos\t Tempo recorde: %.1f\n\n", segundosPassados(), tempoRecorde);
 
         System.out.printf("\n");
 

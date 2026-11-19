@@ -174,11 +174,20 @@ public class KeboardManager{
             
             double tempo = TabuleiroManager.segundosPassados();
             boolean novoRecorde = Recorde.salvarRecorde(tempo);
+
+            int movimentos = TabuleiroManager.movimentos;
+            boolean recordeMov = MovimentosRecorde.salvarRecorde(movimentos);
             
             if(novoRecorde){
                 System.out.println("Novo recorde! Tempo: " + tempo + " segundos");
             } else {
                 System.out.println("Tempo: " + tempo + " segundos");
+            }
+
+            if(recordeMov){
+                System.out.println("Novo recorde! Movimentos: " + movimentos);
+            } else {
+                System.out.println("Movimentos: " + movimentos);
             }
             System.exit(0);
         }
