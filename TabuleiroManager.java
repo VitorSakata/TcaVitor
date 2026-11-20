@@ -101,15 +101,23 @@ public class TabuleiroManager {
 
         System.out.printf("Tabuleiro: %d x %d\n\n",linhas, colunas);
 
-        System.out.printf("Movimentos: %d\t Movimentos recorde: %d\n\n", movimentos, movimentosRecorde);
+        System.out.printf("Movimentos: %d\t\t Movimentos recorde: %d\n", movimentos, movimentosRecorde);
 
-        System.out.printf("Tempo: %.1f segundos\t Tempo recorde: %.1f\n\n", segundosPassados(), tempoRecorde);
+        System.out.printf("Tempo: %.1fs\t\t Tempo recorde: %.1f\n\n", segundosPassados(), tempoRecorde);
 
         System.out.printf("\n");
 
+        /*String borda = "";
+
+        for (int j = 0; j < colunas; j++) {
+        borda += "+-----";
+        }
+
+        borda += "+";/* */
+
         //percorre as linhas da matriz, e para cada linha percorre as colunas, imprimindo o valor da posição atual;
         for(int i = 0; i < linhas; i++){
-            System.out.printf("");
+            System.out.printf("\n");
             for(int j = 0; j < colunas; j++){
 
                 //verifica se a posição atual é a peça vazia, se for, imprime um espaço em branco, caso contrario imprime o valor da posição;

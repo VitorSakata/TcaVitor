@@ -160,7 +160,7 @@ public class Menu {
 
         while (true) {
 
-            int opcaoSelecionada = escolherOpcao(opcoes, "Configurações");
+            int opcaoSelecionada = escolherOpcao(opcoes, "Menu Principal");
 
             switch (opcaoSelecionada) {
                 case 0:
