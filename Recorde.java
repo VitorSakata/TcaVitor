@@ -1,5 +1,5 @@
 public class Recorde {
-    private static final String ARQUIVO = "recorde.txt";
+    public static final String ARQUIVO = "recorde.txt";
 
     public static double carregarRecorde(){
         String texto = SaveGameManager.lerDoArquivo(ARQUIVO);
