@@ -1,7 +1,6 @@
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
-import java.util.Scanner;
 
 public class KeboardManager{
 
@@ -16,8 +15,6 @@ public class KeboardManager{
         Pointer GetStdHandle(int tipo);
         boolean GetConsoleScreenBufferInfo(Pointer console, byte[] info);
     }
-
-    public final static Scanner TECLADO = new Scanner(System.in);
 
     static boolean windows = System.getProperty("os.name").toLowerCase().contains("win");
     static boolean tecladoPreparado = false;
@@ -73,31 +70,6 @@ public class KeboardManager{
         System.out.flush();
     }
 
-    public static char lerTecla(){
-        return (char)obtemTeclaPressionada();
-    }
-
-    public static void esperar(int milissegundos) {
-        try {
-            Thread.sleep(milissegundos);
-        } catch (InterruptedException e) {
-        }
-    }
-
-    public static void desenharTela(int x, int y, int largura, int altura) {
-        for (int i = 0; i < altura; i++) {
-            for (int j = 0; j < largura; j++) {
-                if (i == y && j == x) {
-                    System.out.print('H');
-                } else {
-                    System.out.print('.');
-                }
-            }
-            System.out.println();
-        }
-        System.out.println("Use A, D, W, S para mover o personagem. Pressione ESC para sair.");
-    }
-
     public static int[][] MoverPeca(int[][] tabuleiro) {
 
         String Nome_Arquivo = "savegame.txt";
@@ -117,7 +89,7 @@ public class KeboardManager{
         int moverLinha = linhas;
         int moverColuna = colunas;
 
-        char tecla = lerTecla();
+        char tecla = (char)obtemTeclaPressionada();
         limparConsole();
         SoundManager.tocarSom("Sons/mover.wav", false);
 
@@ -144,7 +116,7 @@ public class KeboardManager{
 
         String dadosParaSalvar = String.valueOf(TabuleiroManager.tabuleiroParaTexto(tabuleiro));
 
-        switch(lerTecla()){
+        switch((char)obtemTeclaPressionada()){
             case 's':
             case 'S':
 
