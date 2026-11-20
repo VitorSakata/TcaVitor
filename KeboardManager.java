@@ -1,6 +1,7 @@
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
+import java.util.Scanner;
 
 public class KeboardManager{
 
@@ -16,6 +17,8 @@ public class KeboardManager{
         boolean GetConsoleScreenBufferInfo(Pointer console, byte[] info);
     }
 
+    public final static Scanner TECLADO = new Scanner(System.in);
+    
     static boolean windows = System.getProperty("os.name").toLowerCase().contains("win");
     static boolean tecladoPreparado = false;
 
