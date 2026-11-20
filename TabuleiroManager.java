@@ -24,7 +24,7 @@ public class TabuleiroManager {
 
         int[][] tabuleiro = criarMatrizInteira(Menu.tamanho);
 
-        embaralharTabuleiroInteiro(tabuleiro, 200);
+        embaralharTabuleiroInteiro(tabuleiro, Menu.embaralhamentos);
 
         iniciarCronometro();
 

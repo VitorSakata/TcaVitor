@@ -1,7 +1,5 @@
 import com.sun.jna.Library;
 import com.sun.jna.Native;
-import com.sun.jna.Pointer;
-import java.util.Scanner;
 
 public class KeboardManager{
 
@@ -11,28 +9,8 @@ public class KeboardManager{
         int _getch();
     }
 
-    public interface Kernel32 extends Library {
-        Kernel32 INSTANCE = Native.load("kernel32", Kernel32.class);
-        Pointer GetStdHandle(int tipo);
-        boolean GetConsoleScreenBufferInfo(Pointer console, byte[] info);
-    }
-
-    public final static Scanner TECLADO = new Scanner(System.in);
-    
     static boolean windows = System.getProperty("os.name").toLowerCase().contains("win");
     static boolean tecladoPreparado = false;
-
-    public static boolean pressionouTecla() {
-        if (windows) {
-            return Crt.INSTANCE._kbhit() != 0;
-        }
-        prepararTecladoMacLinux();
-        try {
-            return System.in.available() > 0;
-        } catch (Exception e) {
-            return false;
-        }
-    }
 
     public static int obtemTeclaPressionada() {
         if (windows) {
@@ -44,11 +22,6 @@ public class KeboardManager{
         } catch (Exception e) {
             return -1;
         }
-    }
-
-    public static void esperarTecla() {
-        System.out.println("Pressione uma tecla para continuar...");
-        obtemTeclaPressionada(); // fica esperando a tecla
     }
 
     static void prepararTecladoMacLinux() {

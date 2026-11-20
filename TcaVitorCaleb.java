@@ -2,16 +2,8 @@
 //git config --global user.email/name "nome/email"
 //home/aluno/Downloads/TCA/TcaVitor/TcaVitorCaleb.java
 //javac -cp "lib/*:." TcaVitorCaleb.java
-import java.util.Scanner;
-
 public class TcaVitorCaleb{
 
-    public final static Scanner TECLADO = new Scanner(System.in);
-
-    public static int lerInteiro(){
-        return TECLADO.nextInt();
-    }
-    
     public static void main(String[] args) {
         
         Menu.menuManager();

@@ -36,11 +36,6 @@ public class Menu {
         }
     }
 
-    public static void esperarTecla() {
-        System.out.println("Pressione uma tecla para continuar...");
-        obtemTeclaPressionada(); // fica esperando a tecla
-    }
-
     static void prepararTecladoMacLinux() {
         if (tecladoPreparado) {
             return;
@@ -64,11 +59,6 @@ public class Menu {
         System.out.flush();
     }
 
-    public static void gotoXY(int linha, int coluna) {
-        char escCode = 0x1B;
-        System.out.print(String.format("%c[%d;%df", escCode, linha, coluna));
-    }  
-
     public static final int PRETO      = 0;
     public static final int VERMELHO   = 1;
     public static final int VERDE      = 2;
@@ -87,14 +77,6 @@ public class Menu {
             System.out.print("\033[39m"); // cor padrão do terminal
         }
     }
-
-    public static void mudarCorFundo(int cor) {
-        if (cor >= 0 && cor <= 255) {
-            System.out.print("\033[48;5;" + cor + "m");
-        } else {
-            System.out.print("\033[49m"); // cor padrão do terminal
-        }
-    }   
 
 
     public static void atualizarMenu(int opcaoSelecionada, String[] opcoes, String tituloMenu) {
@@ -125,50 +107,6 @@ public class Menu {
         System.out.println();
 
     }
-
-    public static void executarAcaoMenu(int opcaoSelecionada) {
-        
-        limparConsole();
-        
-        switch (opcaoSelecionada) {
-            case 0:
-                int[][] tabuleiro = TabuleiroManager.criarMatrizInteira(4);
-                TabuleiroManager.embaralharTabuleiroInteiro(tabuleiro, 200);
-                TabuleiroManager.iniciarCronometro();
-                TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
-                while (true) {
-                    tabuleiro = KeboardManager.MoverPeca(tabuleiro);
-                }
-
-            case 1:
-                int[][] tabuleirosalvo = TabuleiroManager.textoParaTabuleiro(SaveGameManager.lerDoArquivo("savegame.txt"));
-                TabuleiroManager.iniciarCronometro();
-                TabuleiroManager.imprimirMatrizInteiro(tabuleirosalvo);
-                while (true) {
-                    tabuleirosalvo = KeboardManager.MoverPeca(tabuleirosalvo);
-                }
-
-            case 2:
-
-                configManagers();
-
-            case 3:
-                System.out.println("\n\nAjuda selecionado.\n\n");
-                break;
-
-            case 4:
-                System.out.println("\n\nSobre selecionado.\n\n");           
-                break;
-
-            default:
-                System.out.println("\n\nOpção inválida.\n\n");
-                break;
-
-        }
-        esperarTecla();
-        limparConsole();
-
-    }  
 
     public static int escolherOpcao(String[] opcoes, String tituloMenu){
 
@@ -269,7 +207,7 @@ public class Menu {
                     tamanhoManager();
                     break;
                 case 1:
-                    System.out.println("\n\nDificuldade selecionado.\n\n");
+                    dificuldadeManager();
                     break;
                 case -1:
                     return; 
@@ -280,13 +218,14 @@ public class Menu {
         }
     }
 
+
     public static int tamanho = 4;
 
     public static void tamanhoManager() {
         String [] opcoes = {            
             "3x3              ",
             "4x4              ",
-            "5x5              ",
+            "Modo desafio 5x5 ",
         };
 
         while (true) {
@@ -296,13 +235,45 @@ public class Menu {
             switch (opcaoSelecionada){
                 case 0:
                     tamanho = 3;
-                    break;
+                    return;
                 case 1:
                     tamanho = 4;
-                    break;
+                    return;
                 case 2:
                     tamanho = 5;
+                    return;
+                case -1:
+                    return; 
+                default:
+                    System.out.println("\n\nOpção inválida.\n\n");
                     break;
+            }
+        }
+    }
+
+    public static int embaralhamentos = 200;
+
+    public static void dificuldadeManager() {
+        String [] opcoes = {            
+            "Fácil            ",
+            "Médio            ",
+            "Difícil (Não recomendado no modo 5x5)         ",
+        };
+
+        while (true) {
+
+            int opcaoSelecionada = escolherOpcao(opcoes, "Dificuldade do Jogo");
+
+            switch (opcaoSelecionada){
+                case 0:
+                    embaralhamentos = 100;
+                    return;
+                case 1:
+                    embaralhamentos = 200;
+                    return;
+                case 2:
+                    embaralhamentos = 300;
+                    return;
                 case -1:
                     return; 
                 default:
