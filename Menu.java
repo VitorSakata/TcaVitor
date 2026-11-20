@@ -129,7 +129,7 @@ public class Menu {
     public static void executarAcaoMenu(int opcaoSelecionada) {
         
         limparConsole();
-
+        
         switch (opcaoSelecionada) {
             case 0:
                 int[][] tabuleiro = TabuleiroManager.criarMatrizInteira(4);
@@ -200,9 +200,7 @@ public class Menu {
                         break;
 
                     case 13: 
-                        executarAcaoMenu(opcaoSelecionada);
-                        atualizarMenu(  opcaoSelecionada, opcoes, tituloMenu);
-                        break;
+                        return opcaoSelecionada;
 
                     case 27: 
                         return -1; 
@@ -212,7 +210,7 @@ public class Menu {
             
         }
     }
-    
+
     public static void menuManager() {
         String [] opcoes = {            
             "iniciar jogo     ",
@@ -220,9 +218,40 @@ public class Menu {
             "configuracoes    ",
             "ajuda            ",
             "sobre            ",
-        };
+        }; 
 
-        escolherOpcao(opcoes, "Menu Principal");
+        while (true) {
+
+            int opcaoSelecionada = escolherOpcao(opcoes, "Configurações");
+
+            switch (opcaoSelecionada) {
+                case 0:
+                    limparConsole();
+                    TabuleiroManager.jogar();
+                    break;
+                case 1:
+                    limparConsole();
+                    TabuleiroManager.carregarJogo();
+                    break;
+                case 2:
+                configManagers();
+
+                case 3:
+                    System.out.println("\n\nAjuda selecionado.\n\n");
+                    break;
+
+                case 4:
+                    System.out.println("\n\nSobre selecionado.\n\n");           
+                    break;
+
+                default:
+                    System.out.println("\n\nOpção inválida.\n\n");
+                    break;
+
+            }
+
+            limparConsole();
+        }
     }
 
     public static void configManagers() {
@@ -231,8 +260,27 @@ public class Menu {
             "Dificuldade      ",
         };
 
-        escolherOpcao(opcoes, "Configurações");
+        while (true) {
+
+            int opcaoSelecionada = escolherOpcao(opcoes, "Configurações");
+
+            switch (opcaoSelecionada) {
+                case 0:
+                    tamanhoManager();
+                    break;
+                case 1:
+                    System.out.println("\n\nDificuldade selecionado.\n\n");
+                    break;
+                case -1:
+                    return; 
+                default:
+                    System.out.println("\n\nOpção inválida.\n\n");
+                    break;
+            }
+        }
     }
+
+    public static int tamanho = 4;
 
     public static void tamanhoManager() {
         String [] opcoes = {            
@@ -241,6 +289,26 @@ public class Menu {
             "5x5              ",
         };
 
-        escolherOpcao(opcoes, "Tamanho do Tabuleiro");
+        while (true) {
+
+            int opcaoSelecionada = escolherOpcao(opcoes, "Tamanho do Tabuleiro");
+
+            switch (opcaoSelecionada){
+                case 0:
+                    tamanho = 3;
+                    break;
+                case 1:
+                    tamanho = 4;
+                    break;
+                case 2:
+                    tamanho = 5;
+                    break;
+                case -1:
+                    return; 
+                default:
+                    System.out.println("\n\nOpção inválida.\n\n");
+                    break;
+            }
+        }
     }
 }

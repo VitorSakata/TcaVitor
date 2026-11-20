@@ -1,17 +1,11 @@
 import java.util.Random;
-import java.util.Scanner;
 
 public class TabuleiroManager {
 
-    public final static Scanner TECLADO = new Scanner(System.in);
-
-    public static double lerValorReal(){
-        return TECLADO.nextDouble();
-    }
     //cria a matriz com o tamanho escolhido pelo usuário, e preenche ela com os valores de 1 até o tamanho da matriz - 1, e coloca 0 na última posição;
     public static int [][] criarMatrizInteira(int tamanho){
         int valor = 1;
-        
+         
         int[][] mat = new int[tamanho][tamanho];
 
         //percorre a matriz e preenche ela com os valores de 1 até o tamanho da matriz - 1, e coloca 0 na última posição;
@@ -28,9 +22,22 @@ public class TabuleiroManager {
 
     public static void jogar(){
 
-        int[][] tabuleiro = criarMatrizInteira(4);
+        int[][] tabuleiro = criarMatrizInteira(Menu.tamanho);
 
         embaralharTabuleiroInteiro(tabuleiro, 200);
+
+        iniciarCronometro();
+
+        imprimirMatrizInteiro(tabuleiro);
+
+        while (true) {
+            tabuleiro = KeboardManager.MoverPeca(tabuleiro);
+        }
+    }
+
+    public static void carregarJogo(){
+
+        int[][] tabuleiro = textoParaTabuleiro(SaveGameManager.lerDoArquivo("savegame.txt"));
 
         iniciarCronometro();
 
