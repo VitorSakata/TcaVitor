@@ -89,21 +89,21 @@ public class Menu {
         System.out.println("          ───── o quebra-cabeça dos números ─────");
         mudarCor(COR_PADRAO);
         System.out.println();
-        System.out.println("\t\t╔═════════════════════╗");
-        System.out.println("\t\t║    "+tituloMenu+"   ║");
-        System.out.println("\t\t╠═════════════════════╣");
+        System.out.println("\t\t");
+        System.out.println("\t\t     "+tituloMenu+"    ");
+        System.out.println("\t\t");
         for (int i = 0; i < opcoes.length; i++) {
             if (i == opcaoSelecionada) {
-                System.out.print("\t\t║> ");
+                System.out.print("\t\t[               ] ");
                 mudarCor(VERDE);
                 System.out.print(opcoes[i]);
                 mudarCor(COR_PADRAO); // volta para a cor padrão
-                System.out.println("  ║");
+                System.out.println("  ");
             } else {
-                System.out.println("\t\t║  " + opcoes[i] +"  ║");
+                System.out.println("\t\t  " + opcoes[i] +"  ");
             }
         }
-        System.out.println("\t\t╚═════════════════════╝");
+        System.out.println("\t\t");
         System.out.println();
 
     }
@@ -266,10 +266,10 @@ public class Menu {
 
             switch (opcaoSelecionada){
                 case 0:
-                    embaralhamentos = 100;
+                    embaralhamentos = 30;
                     return;
                 case 1:
-                    embaralhamentos = 200;
+                    embaralhamentos = 100;
                     return;
                 case 2:
                     embaralhamentos = 300;
