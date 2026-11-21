@@ -22,30 +22,30 @@ public class TabuleiroManager {
 
     public static void jogar(){
 
-        int[][] tabuleiro = criarMatrizInteira(Menu.tamanho);
+            int[][] tabuleiro = criarMatrizInteira(Menu.tamanho);
 
-        embaralharTabuleiroInteiro(tabuleiro, Menu.embaralhamentos);
+            embaralharTabuleiroInteiro(tabuleiro, Menu.embaralhamentos);
 
-        iniciarCronometro();
+            iniciarCronometro();
 
-        imprimirMatrizInteiro(tabuleiro);
+            imprimirMatrizInteiro(tabuleiro);
 
-        while (true) {
-            tabuleiro = KeboardManager.MoverPeca(tabuleiro);
-        }
+            while (verificarVitoria(tabuleiro) == false) {
+                tabuleiro = KeboardManager.MoverPeca(tabuleiro);
+            }
     }
 
     public static void carregarJogo(){
 
-        int[][] tabuleiro = textoParaTabuleiro(SaveGameManager.lerDoArquivo("savegame.txt"));
+            int[][] tabuleiro = textoParaTabuleiro(SaveGameManager.lerDoArquivo("savegame.txt"));
 
-        iniciarCronometro();
+            iniciarCronometro();
 
-        imprimirMatrizInteiro(tabuleiro);
+            imprimirMatrizInteiro(tabuleiro);
 
-        while (true) {
-            tabuleiro = KeboardManager.MoverPeca(tabuleiro);
-        }
+            while (verificarVitoria(tabuleiro) == false) {
+                tabuleiro = KeboardManager.MoverPeca(tabuleiro);
+            }
     }
 
     //transforma o tabuleiro em texto para salvar no arquivo
@@ -107,24 +107,17 @@ public class TabuleiroManager {
 
         System.out.printf("\n");
 
-        /*String borda = "";
-
-        for (int j = 0; j < colunas; j++) {
-        borda += "+-----";
-        }
-
-        borda += "+";/* */
-
         //percorre as linhas da matriz, e para cada linha percorre as colunas, imprimindo o valor da posição atual;
         for(int i = 0; i < linhas; i++){
+
             System.out.printf("\n");
             for(int j = 0; j < colunas; j++){
 
-                //verifica se a posição atual é a peça vazia, se for, imprime um espaço em branco, caso contrario imprime o valor da posição;
+
                 if(mat[i][j] == 0){
                     System.out.print("\t");
                 }else{
-                System.out.printf("%2d\t", mat[i][j]);
+                    System.out.printf("%2d\t", mat[i][j]);
                 }
             }
             System.out.println("\n");
@@ -183,7 +176,7 @@ public class TabuleiroManager {
             int valorEsperado = 1;
 
             for (int i = 0; i < tamanho; i++) {
-                for (int j = 0; j < tamanho; j++) {
+                for (int j = 0; j < tamanho; j++) {;
 
                     if(i == tamanho -1 && j == tamanho -1){
                         return tabuleiro[i][j] == 0;
@@ -192,6 +185,7 @@ public class TabuleiroManager {
                     if(tabuleiro[i][j] != valorEsperado){
                         return false;
                     }
+                    
                     valorEsperado++;
                 }
             }

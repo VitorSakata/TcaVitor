@@ -106,11 +106,6 @@ public class KeboardManager{
         System.exit(0);
         }
 
-        if (moverLinha < 0) moverLinha = 0;
-        if (moverLinha > tabuleiro.length - 1) moverLinha = tabuleiro.length - 1;
-        if (moverColuna < 0) moverColuna = 0;
-        if (moverColuna > tabuleiro[0].length - 1) moverColuna = tabuleiro[0].length - 1;
-
         if(moverLinha != linhas || moverColuna != colunas){
             tabuleiro[linhas][colunas] = tabuleiro[moverLinha][moverColuna];
             tabuleiro[moverLinha][moverColuna] = 0;
@@ -118,7 +113,6 @@ public class KeboardManager{
         }
 
         if(TabuleiroManager.verificarVitoria(tabuleiro) == true){
-            System.out.println(AsciiArt.vitoria);
             
             double tempo = TabuleiroManager.segundosPassados();
             boolean novoRecorde = Recorde.salvarRecorde(tempo);
@@ -137,7 +131,6 @@ public class KeboardManager{
             } else {
                 System.out.println("Movimentos: " + movimentos);
             }
-            System.exit(0);
         }
 
         TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
