@@ -4,8 +4,6 @@ import java.util.PriorityQueue;
 
 public class ResolverSozinho {
 
-    // ===================== PARTE 1: o "nó" =====================
-    // Um nó é um tabuleiro + informações de como chegamos nele.
     static class No {
         int[][] tabuleiro;  // como o tabuleiro está
         int g;              // movimentos feitos desde o início
@@ -31,7 +29,6 @@ public class ResolverSozinho {
     static int[] dColuna = {0, 0, -1, 1};
     static char[] tecla  = {'W', 'S', 'A', 'D'};
 
-    // ===================== PARTE 2: a heurística =====================
     // Soma, para cada peça, quantas casas ela está longe do lugar certo.
     static int manhattan(int[][] tab) {
         int tamanho = tab.length;
@@ -61,32 +58,31 @@ public class ResolverSozinho {
         return copia;
     }
 
-    // ===================== PARTES 3 a 7: o A* =====================
     // Devolve as teclas que resolvem o tabuleiro (ex.: "DSAW..."),
     // ou null se não encontrar solução.
     public static String resolver(int[][] inicial) {
 
         int tamanho = inicial.length;
 
-        // PARTE 3: fila de prioridade -> sempre entrega o nó de menor f
+        // fila de prioridade = sempre entrega o nó de menor f
         PriorityQueue<No> abertos = new PriorityQueue<>((a, b) -> a.f() - b.f());
 
-        // PARTE 4: tabuleiros já explorados (guardados como texto)
+        // tabuleiros já explorados (guardados como texto)
         HashSet<String> visitados = new HashSet<>();
 
         abertos.add(new No(copiar(inicial), 0, null, ' '));
 
-        // PARTE 6: laço principal
+        // laço principal
         while (!abertos.isEmpty()) {
 
-            No atual = abertos.poll();                // 1. pega o de menor f
+            No atual = abertos.poll();                // pega o de menor f
 
-            if (atual.h == 0) {                       // 2. resolvido?
-                return montarCaminho(atual);          //    PARTE 7
+            if (atual.h == 0) {                       //resolvido?
+                return montarCaminho(atual);          
             }
 
             String chave = Arrays.deepToString(atual.tabuleiro);
-            if (visitados.contains(chave)) {          // 3. já vi esse? pula
+            if (visitados.contains(chave)) {          //já vi esse? pula
                 continue;
             }
             visitados.add(chave);
@@ -102,7 +98,7 @@ public class ResolverSozinho {
                 }
             }
 
-            // PARTE 5: gera os vizinhos (as 4 direções possíveis)
+            //  gera os vizinhos
             for (int d = 0; d < 4; d++) {
                 int novaLinha  = linhaVazia  + dLinha[d];
                 int novaColuna = colunaVazia + dColuna[d];
@@ -124,7 +120,7 @@ public class ResolverSozinho {
         return null; // não tem solução
     }
 
-    // PARTE 7: volta de pai em pai juntando os movimentos
+    // volta de pai em pai juntando os movimentos
     static String montarCaminho(No fim) {
         String caminho = "";
         No n = fim;
@@ -134,8 +130,6 @@ public class ResolverSozinho {
         }
         return caminho;
     }
-
-    // ===================== MOSTRAR O CAMINHO =====================
 
     // Imprime o tabuleiro (o vazio aparece como espaço).
     static void imprimir(int[][] mat) {
@@ -155,7 +149,7 @@ public class ResolverSozinho {
         }
     }
 
-    // Traduz a letra para um texto que dá para ler.
+    // Traduz a letra para um texto que dá para usar no metodo resolverEMostrar.
     static String nomeDoMovimento(char letra) {
         if (letra == 'W') return "vazio para CIMA";
         if (letra == 'S') return "vazio para BAIXO";
