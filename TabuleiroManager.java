@@ -99,20 +99,18 @@ public class TabuleiroManager {
 
         System.out.printf("\n\n\n\n\n\n");
 
-        System.out.printf("Tabuleiro: %d x %d\n\n",linhas, colunas);
+        System.out.printf("\t\tTabuleiro: %d x %d\n\n",linhas, colunas);
 
-        System.out.printf("Movimentos: %d\t\t Movimentos recorde: %d\n", movimentos, movimentosRecorde);
+        System.out.printf("\t\tMovimentos: %d\t\t Movimentos recorde: %d\n", movimentos, movimentosRecorde);
 
-        System.out.printf("Tempo: %.1fs\t\t Tempo recorde: %.1f\n\n", segundosPassados(), tempoRecorde);
+        System.out.printf("\t\tTempo: %.1fs\t\t Tempo recorde: %.1f\n\n", segundosPassados(), tempoRecorde);
 
         System.out.printf("\n");
 
         //percorre as linhas da matriz, e para cada linha percorre as colunas, imprimindo o valor da posição atual;
         for(int i = 0; i < linhas; i++){
-
-            System.out.printf("\n");
+            System.out.printf("\n\t\t");
             for(int j = 0; j < colunas; j++){
-
 
                 if(mat[i][j] == 0){
                     System.out.print("\t");

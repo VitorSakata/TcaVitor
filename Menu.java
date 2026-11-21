@@ -80,6 +80,9 @@ public class Menu {
 
 
     public static void atualizarMenu(int opcaoSelecionada, String[] opcoes, String tituloMenu) {
+
+        SoundManager.tocarSom("Sons/menu.wav", false);
+
         limparConsole();
         System.out.println("\n\n\n\n");
         mudarCor(AMARELO);
@@ -90,7 +93,7 @@ public class Menu {
         mudarCor(COR_PADRAO);
         System.out.println();
         System.out.println("\t\t");
-        System.out.println("\t\t     "+tituloMenu+"    ");
+        System.out.println("\t\t  "+tituloMenu+"    ");
         System.out.println("\t\t");
         for (int i = 0; i < opcoes.length; i++) {
             if (i == opcaoSelecionada) {
@@ -151,16 +154,17 @@ public class Menu {
 
     public static void menuManager() {
         String [] opcoes = {            
-            "iniciar jogo     ",
-            "carregar jogo    ",
-            "configuracoes    ",
-            "ajuda            ",
-            "sobre            ",
+            "NOVO JOGO        ",
+            "CARREGAR JOGO    ",
+            "CONFIGURAÇÕES    ",
+            "AJUDA            ",
+            "SOBRE            ",
+            "RESOLVER SOZINHO ",
         }; 
 
         while (true) {
 
-            int opcaoSelecionada = escolherOpcao(opcoes, "Menu Principal");
+            int opcaoSelecionada = escolherOpcao(opcoes, "MENU PRINCIPAL");
 
             switch (opcaoSelecionada) {
                 case 0:
@@ -182,6 +186,14 @@ public class Menu {
                     System.out.println("\n\nSobre selecionado.\n\n");           
                     break;
 
+                case 5:
+                    limparConsole();
+                    int[][] tab = TabuleiroManager.criarMatrizInteira(tamanho);
+                    TabuleiroManager.embaralharTabuleiroInteiro(tab, embaralhamentos);
+                    ResolverSozinho.resolverEMostrar(tab, 500);
+                    
+                    break;
+
                 default:
                     System.out.println("\n\nOpção inválida.\n\n");
                     break;
@@ -194,13 +206,13 @@ public class Menu {
 
     public static void configManagers() {
         String [] opcoes = {            
-            "Tamanho          ",
-            "Dificuldade      ",
+            "TAMANHO          ",
+            "DIFICULDADE      ",
         };
 
         while (true) {
 
-            int opcaoSelecionada = escolherOpcao(opcoes, "Configurações");
+            int opcaoSelecionada = escolherOpcao(opcoes, "CONFIGURAÇÕES");
 
             switch (opcaoSelecionada) {
                 case 0:
@@ -225,12 +237,12 @@ public class Menu {
         String [] opcoes = {            
             "3x3              ",
             "4x4              ",
-            "Modo desafio 5x5 ",
+            "MODO DESAFIO 5x5 ",
         };
 
         while (true) {
 
-            int opcaoSelecionada = escolherOpcao(opcoes, "Tamanho do Tabuleiro");
+            int opcaoSelecionada = escolherOpcao(opcoes, "TAMANHO DO TABULEIRO");
 
             switch (opcaoSelecionada){
                 case 0:
@@ -255,14 +267,14 @@ public class Menu {
 
     public static void dificuldadeManager() {
         String [] opcoes = {            
-            "Fácil            ",
-            "Médio            ",
-            "Difícil (Não recomendado no modo 5x5)         ",
+            "FÁCIL            ",
+            "MÉDIO            ",
+            "DIFÍCIL (Não recomendado no modo 5x5)         ",
         };
 
         while (true) {
 
-            int opcaoSelecionada = escolherOpcao(opcoes, "Dificuldade do Jogo");
+            int opcaoSelecionada = escolherOpcao(opcoes, "DIFICULDADE DO JOGOO");
 
             switch (opcaoSelecionada){
                 case 0:

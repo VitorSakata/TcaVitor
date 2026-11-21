@@ -103,10 +103,12 @@ public class KeboardManager{
         System.out.println(AsciiArt.msgAdeus);
         Menu.mudarCor(Menu.COR_PADRAO);
         SoundManager.tocarSom("Sons/esc.wav", true);
-        System.exit(0);
+
         }
 
-        if(moverLinha != linhas || moverColuna != colunas){
+        if (moverLinha >= 0 && moverLinha < tabuleiro.length &&
+            moverColuna >= 0 && moverColuna < tabuleiro[0].length) {
+
             tabuleiro[linhas][colunas] = tabuleiro[moverLinha][moverColuna];
             tabuleiro[moverLinha][moverColuna] = 0;
             TabuleiroManager.movimentos++;
@@ -121,16 +123,27 @@ public class KeboardManager{
             boolean recordeMov = MovimentosRecorde.salvarRecorde(movimentos);
             
             if(novoRecorde){
+                Menu.mudarCor(Menu.VERDE);
                 System.out.println("Novo recorde! Tempo: " + tempo + " segundos");
+                Menu.mudarCor(Menu.COR_PADRAO);
             } else {
                 System.out.println("Tempo: " + tempo + " segundos");
             }
 
             if(recordeMov){
+                Menu.mudarCor(Menu.VERDE);
                 System.out.println("Novo recorde! Movimentos: " + movimentos);
+                Menu.mudarCor(Menu.COR_PADRAO);
             } else {
                 System.out.println("Movimentos: " + movimentos);
             }
+
+            if(Menu.embaralhamentos == 300 && Menu.tamanho == 5){
+                System.out.println(AsciiArt.msgVitoria2);
+            }
+
+            System.out.println(AsciiArt.msgVitoria1);
+            SoundManager.tocarSom("Sons/vitoria.wav", true);
         }
 
         TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
