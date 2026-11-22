@@ -29,7 +29,9 @@ public class AsciiArt {
                                         "                 Acredite no você que acredita em você!s              \r\n" + //
                                         "        ·  *  ·   o b r i g a d o   p o r   j o g a r   ·  *  ·" ; //
 
-    static String msgVitoria1 = "                                                                                                                   \r\n" + //
+    static String msgVitoria1 =
+    
+                "                                                                                                                   \r\n" + //
                 "                                              .::-=--===---------=-::                                              \r\n" + //
                 "                                          .-=-----=******....::--------=:                                          \r\n" + //
                 "                                       .------:..=*+-:...:..........:--=+=--.                                      \r\n" + //
@@ -68,7 +70,8 @@ public class AsciiArt {
                 "";
 
 
-    static String msgVitoria2 = "          -==--                     \r\n" + //
+    static String msgVitoria2 =
+                "          -==--                     \r\n" + //
                 "       +**++++++*-                  \r\n" + //
                 "      ++**++++++++-                 \r\n" + //
                 "     :*++**+*+*+***                 \r\n" + //

@@ -90,7 +90,7 @@ public class KeboardManager{
 
         System.out.println("Deseja salvar seu progresso? (S/Esc)");
 
-        String dadosParaSalvar = String.valueOf(TabuleiroManager.tabuleiroParaTexto(tabuleiro));
+        String dadosParaSalvar = (TabuleiroManager.tabuleiroParaTexto(tabuleiro));
 
         switch((char)obtemTeclaPressionada()){
             case 's':
@@ -106,8 +106,8 @@ public class KeboardManager{
 
         }
 
-        if (moverLinha >= 0 && moverLinha < tabuleiro.length &&
-            moverColuna >= 0 && moverColuna < tabuleiro[0].length) {
+        if(moverLinha >= 0 && moverLinha < tabuleiro.length &&
+            moverColuna >= 0 && moverColuna < tabuleiro[0].length){
 
             tabuleiro[linhas][colunas] = tabuleiro[moverLinha][moverColuna];
             tabuleiro[moverLinha][moverColuna] = 0;
@@ -124,26 +124,31 @@ public class KeboardManager{
             
             if(novoRecorde){
                 Menu.mudarCor(Menu.VERDE);
-                System.out.println("Novo recorde! Tempo: " + tempo + " segundos");
+                System.out.println("\n\n\n\\n\n\n\t\tNovo recorde! Tempo: " + tempo + " segundos");
                 Menu.mudarCor(Menu.COR_PADRAO);
             } else {
-                System.out.println("Tempo: " + tempo + " segundos");
+                System.out.println("\n\n\n\n\n\n\t\tTempo: " + tempo + " segundos");
             }
 
             if(recordeMov){
                 Menu.mudarCor(Menu.VERDE);
-                System.out.println("Novo recorde! Movimentos: " + movimentos);
+                System.out.println("\t\tNovo recorde! Movimentos: " + movimentos);
                 Menu.mudarCor(Menu.COR_PADRAO);
             } else {
-                System.out.println("Movimentos: " + movimentos);
+                System.out.println("\t\tMovimentos: " + movimentos);
             }
 
             if(Menu.embaralhamentos == 300 && Menu.tamanho == 5){
+                SoundManager.tocarSom("Sons/vitoria.wav", true);
                 System.out.println(AsciiArt.msgVitoria2);
+            }else{
+                Menu.mudarCor(Menu.AMARELO);
+                System.out.println(AsciiArt.msgVitoria1);
+                Menu.mudarCor(Menu.COR_PADRAO);
+                SoundManager.tocarSom("Sons/vitoria.wav", true);
             }
 
-            System.out.println(AsciiArt.msgVitoria1);
-            SoundManager.tocarSom("Sons/vitoria.wav", true);
+            
         }
 
         TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
