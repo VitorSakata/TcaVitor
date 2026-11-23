@@ -151,12 +151,14 @@ public class TabuleiroManager {
                 imprimirLinhaSeparadora(colunas, largura, "╠", "╬", "╣");
                 Menu.mudarCor(Menu.COR_PADRAO);
             }
+
         }
 
         //coloca a parte de baixo do tabuleiro
         Menu.mudarCor(Menu.AMARELO);
         imprimirLinhaSeparadora(colunas, largura, "╚", "╩", "╝");
         Menu.mudarCor(Menu.COR_PADRAO);
+        System.out.println("\t\tMova as peças adjascentes ao vazio com W A S D");
     }
 
         //usa a matriz ja feita e embaralha ela
