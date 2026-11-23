@@ -87,12 +87,28 @@ public class TabuleiroManager {
         return tabuleiro;
     }
 
+    public static void imprimirLinhaSeparadora(int colunas, int largura, String esquerda, String meio, String direita) {
+        System.out.print("\t\t" + esquerda);
+        for (int i = 0; i < colunas; i++) {
+            
+            System.out.print("═".repeat(largura));
+            if (i < colunas - 1) {
+                System.out.print(meio);
+            }else{
+                System.out.print(direita);
+            }
+            
+        }
+        System.out.println();
+    }
+            
     //imprime o tabuleiro
     public static void imprimirMatrizInteiro(int[][] mat){
         //Guarda a quantidade de linhas e colunas da matriz, assim a função pode imprimir qualquer tamanho de matriz, não só 4x4;
         int linhas, colunas;
         linhas = mat.length;
         colunas = mat[0].length;
+        int largura = 6;
         
         double tempoRecorde = Recorde.carregarRecorde();
         int movimentosRecorde = MovimentosRecorde.carregarRecorde();
@@ -107,19 +123,36 @@ public class TabuleiroManager {
 
         System.out.printf("\n");
 
+        
+        //coloca a parte de cima do tabuleiro
+        imprimirLinhaSeparadora(colunas, largura, "╔", "╦", "╗");
+
         //percorre as linhas da matriz, e para cada linha percorre as colunas, imprimindo o valor da posição atual;
         for(int i = 0; i < linhas; i++){
-            System.out.printf("\n\t\t");
+            System.out.printf("\t\t║");
             for(int j = 0; j < colunas; j++){
 
                 if(mat[i][j] == 0){
-                    System.out.print("\t");
+                    System.out.print(" ".repeat(largura));
+                    
                 }else{
-                    System.out.printf("%2d\t", mat[i][j]);
+                    System.out.printf("%" + (largura - 1) + "d ", mat[i][j]);
+                    
                 }
+               
+                System.out.print("║");
+                
             }
-            System.out.println("\n");
+            System.out.println();
+
+            if(i < linhas - 1){
+                imprimirLinhaSeparadora(colunas, largura, "╠", "╬", "╣");
+            }
         }
+
+        //coloca a parte de baixo do tabuleiro
+        imprimirLinhaSeparadora(colunas, largura, "╚", "╩", "╝");
+        
     }
 
         //usa a matriz ja feita e embaralha ela
