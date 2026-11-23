@@ -58,7 +58,7 @@ public class ResolverSozinho {
         return copia;
     }
 
-    // Devolve as teclas que resolvem o tabuleiro (ex.: "DSAW..."),
+    // Devolve as teclas que resolvem o tabuleiro
     // ou null se não encontrar solução.
     public static String resolver(int[][] inicial) {
 

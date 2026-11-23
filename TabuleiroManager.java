@@ -90,7 +90,6 @@ public class TabuleiroManager {
     public static void imprimirLinhaSeparadora(int colunas, int largura, String esquerda, String meio, String direita) {
         System.out.print("\t\t" + esquerda);
         for (int i = 0; i < colunas; i++) {
-            
             System.out.print("═".repeat(largura));
             if (i < colunas - 1) {
                 System.out.print(meio);
@@ -123,13 +122,15 @@ public class TabuleiroManager {
 
         System.out.printf("\n");
 
-        
-        //coloca a parte de cima do tabuleiro
+        Menu.mudarCor(Menu.AMARELO);
         imprimirLinhaSeparadora(colunas, largura, "╔", "╦", "╗");
+        Menu.mudarCor(Menu.AMARELO);
 
         //percorre as linhas da matriz, e para cada linha percorre as colunas, imprimindo o valor da posição atual;
         for(int i = 0; i < linhas; i++){
+            Menu.mudarCor(Menu.AMARELO);
             System.out.printf("\t\t║");
+            Menu.mudarCor(Menu.COR_PADRAO);
             for(int j = 0; j < colunas; j++){
 
                 if(mat[i][j] == 0){
@@ -139,20 +140,23 @@ public class TabuleiroManager {
                     System.out.printf("%" + (largura - 1) + "d ", mat[i][j]);
                     
                 }
-               
+                Menu.mudarCor(Menu.AMARELO);
                 System.out.print("║");
-                
+                Menu.mudarCor(Menu.COR_PADRAO);
             }
             System.out.println();
 
             if(i < linhas - 1){
+                Menu.mudarCor(Menu.AMARELO);
                 imprimirLinhaSeparadora(colunas, largura, "╠", "╬", "╣");
+                Menu.mudarCor(Menu.COR_PADRAO);
             }
         }
 
         //coloca a parte de baixo do tabuleiro
+        Menu.mudarCor(Menu.AMARELO);
         imprimirLinhaSeparadora(colunas, largura, "╚", "╩", "╝");
-        
+        Menu.mudarCor(Menu.COR_PADRAO);
     }
 
         //usa a matriz ja feita e embaralha ela
