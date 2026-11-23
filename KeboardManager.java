@@ -139,8 +139,8 @@ public class KeboardManager{
             }
 
             if(Menu.embaralhamentos == 300 && Menu.tamanho == 5){
-                SoundManager.tocarSom("Sons/vitoria.wav", true);
                 System.out.println(AsciiArt.msgVitoria2);
+                SoundManager.tocarSom("Sons/vitoria.wav", true);
             }else{
                 Menu.mudarCor(Menu.AMARELO);
                 System.out.println(AsciiArt.msgVitoria1);
