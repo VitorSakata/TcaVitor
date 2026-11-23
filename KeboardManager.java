@@ -124,10 +124,10 @@ public class KeboardManager{
             
             if(novoRecorde){
                 Menu.mudarCor(Menu.VERDE);
-                System.out.println("\n\n\n\\n\n\n\t\tNovo recorde! Tempo: " + tempo + " segundos");
+                System.out.println("\n\n\n\\n\n\n\t\tNovo recorde! Tempo: " + tempo + " segundos\n");
                 Menu.mudarCor(Menu.COR_PADRAO);
             } else {
-                System.out.println("\n\n\n\n\n\n\t\tTempo: " + tempo + " segundos");
+                System.out.println("\n\n\n\n\n\n\t\tTempo: " + tempo + " segundos\n");
             }
 
             if(recordeMov){
@@ -135,7 +135,7 @@ public class KeboardManager{
                 System.out.println("\t\tNovo recorde! Movimentos: " + movimentos);
                 Menu.mudarCor(Menu.COR_PADRAO);
             } else {
-                System.out.println("\t\tMovimentos: " + movimentos);
+                System.out.println("\t\tMovimentos:" + movimentos);
             }
 
             if(Menu.embaralhamentos == 300 && Menu.tamanho == 5){

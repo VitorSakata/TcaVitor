@@ -112,7 +112,7 @@ public class TabuleiroManager {
         double tempoRecorde = Recorde.carregarRecorde();
         int movimentosRecorde = MovimentosRecorde.carregarRecorde();
 
-        System.out.printf("\n\n\n\n\n\n");
+        System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
         System.out.printf("\t\tTabuleiro: %d x %d\n\n",linhas, colunas);
 
