@@ -23,13 +23,9 @@ public class TabuleiroManager {
     public static void jogar(){
 
             int[][] tabuleiro = criarMatrizInteira(Menu.tamanho);
-
             embaralharTabuleiroInteiro(tabuleiro, Menu.embaralhamentos);
-
             iniciarCronometro();
-
             imprimirMatrizInteiro(tabuleiro);
-
             while (verificarVitoria(tabuleiro) == false) {
                 tabuleiro = KeboardManager.MoverPeca(tabuleiro);
             }
@@ -38,19 +34,13 @@ public class TabuleiroManager {
     public static void carregarJogo(){
 
         String texto = (SaveGameManager.lerDoArquivo("savegame.txt"));
-
         if(texto == null){
             return;
         }
-
         int[][] tabuleiro = textoParaTabuleiro(SaveGameManager.lerDoArquivo("savegame.txt"));
-
         iniciarCronometro();
-            
         inicioCronometro -= (long)(tempoSalvo * 1000);
-
         imprimirMatrizInteiro(tabuleiro);
-
         while (verificarVitoria(tabuleiro) == false) {
             tabuleiro = KeboardManager.MoverPeca(tabuleiro);
         }
@@ -124,20 +114,8 @@ public class TabuleiroManager {
         System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
         
         Menu.mudarCor(Menu.AMARELO);
-        imprimirLinhaSeparadora(colunas, largura, "╔", "═", "╗");
-        Menu.mudarCor(Menu.AMARELO);
-        
-        Menu.mudarCor(Menu.AMARELO);
-        System.out.printf("\t\t║");
+        System.out.printf("\t\t\tTabuleiro: %d x %d    \n",linhas, colunas);
         Menu.mudarCor(Menu.COR_PADRAO);
-        System.out.printf("\tTabuleiro: %d x %d    ",linhas, colunas);
-        Menu.mudarCor(Menu.AMARELO);
-        System.out.printf("║\n");
-        Menu.mudarCor(Menu.COR_PADRAO);
-
-        Menu.mudarCor(Menu.AMARELO);
-        imprimirLinhaSeparadora(colunas, largura, "╚", "═", "╝");
-        Menu.mudarCor(Menu.AMARELO);
 
         System.out.println();
         Menu.mudarCor(Menu.COR_PADRAO);
@@ -258,10 +236,6 @@ public class TabuleiroManager {
         
         }
 
-    
-
-
-    // ===================================================================
     // Disponibilizado pelo professor
     // Guarda o momento em que o cronômetro começou (em milissegundos)
     static long inicioCronometro = 0;
