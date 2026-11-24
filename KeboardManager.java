@@ -46,7 +46,11 @@ public class KeboardManager{
         System.out.flush();
     }
 
+    public static int movimentos = 0;
+
     public static int[][] MoverPeca(int[][] tabuleiro) {
+
+        
 
         String Nome_Arquivo = "savegame.txt";
 
@@ -111,7 +115,7 @@ public class KeboardManager{
 
             tabuleiro[linhas][colunas] = tabuleiro[moverLinha][moverColuna];
             tabuleiro[moverLinha][moverColuna] = 0;
-            TabuleiroManager.movimentos++;
+            movimentos++;
         }
 
         if(TabuleiroManager.verificarVitoria(tabuleiro) == true){
@@ -119,7 +123,6 @@ public class KeboardManager{
             double tempo = TabuleiroManager.segundosPassados();
             boolean novoRecorde = Recorde.salvarRecorde(tempo);
 
-            int movimentos = TabuleiroManager.movimentos;
             boolean recordeMov = MovimentosRecorde.salvarRecorde(movimentos);
             
             if(novoRecorde){

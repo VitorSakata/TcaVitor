@@ -157,8 +157,6 @@ public class Menu {
             "NOVO JOGO        ",
             "CARREGAR JOGO    ",
             "CONFIGURAÇÕES    ",
-            "AJUDA            ",
-            "SOBRE            ",
             "RESOLVER SOZINHO ",
         }; 
 
@@ -176,22 +174,13 @@ public class Menu {
                     TabuleiroManager.carregarJogo();
                     break;
                 case 2:
-                configManagers();
-
+                    configManagers();
+                    break;
                 case 3:
-                    System.out.println("\n\nAjuda selecionado.\n\n");
-                    break;
-
-                case 4:
-                    System.out.println("\n\nSobre selecionado.\n\n");           
-                    break;
-
-                case 5:
                     limparConsole();
                     int[][] tab = TabuleiroManager.criarMatrizInteira(tamanho);
                     TabuleiroManager.embaralharTabuleiroInteiro(tab, embaralhamentos);
                     ResolverSozinho.resolverEMostrar(tab, 500);
-                    
                     break;
 
                 default:
