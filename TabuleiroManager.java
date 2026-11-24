@@ -236,10 +236,6 @@ public class TabuleiroManager {
         
         }
 
-    
-
-
-    // ===================================================================
     // Disponibilizado pelo professor
     // Guarda o momento em que o cronômetro começou (em milissegundos)
     static long inicioCronometro = 0;
