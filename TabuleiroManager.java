@@ -134,7 +134,7 @@ public class TabuleiroManager {
         Menu.mudarCor(Menu.AMARELO);
         System.out.printf("║\n");
         Menu.mudarCor(Menu.COR_PADRAO);
-        
+
         Menu.mudarCor(Menu.AMARELO);
         imprimirLinhaSeparadora(colunas, largura, "╚", "═", "╝");
         Menu.mudarCor(Menu.AMARELO);
@@ -241,7 +241,7 @@ public class TabuleiroManager {
             int valorEsperado = 1;
 
             for (int i = 0; i < tamanho; i++) {
-                for (int j = 0; j < tamanho; j++) {;
+                for (int j = 0; j < tamanho; j++) {
 
                     if(i == tamanho -1 && j == tamanho -1){
                         return tabuleiro[i][j] == 0;
