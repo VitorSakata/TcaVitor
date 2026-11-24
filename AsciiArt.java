@@ -8,7 +8,7 @@ public class AsciiArt {
                             "\t\t██║ ╚████║ ╚██████╔╝ ██║ ╚═╝ ██║ ██║      ╚██████╔╝ ███████╗\r\n" + //
                             "\t\t╚═╝  ╚═══╝  ╚═════╝  ╚═╝     ╚═╝ ╚═╝       ╚═════╝  ╚══════╝"; //
 
-    static String msgAdeus =
+    static String msgAdeusEsc =
     
                                         "\r\n\n\n\n\n\n\n\n\n\n\t\t" + //
                                         "\r\n\t\t" + //
@@ -33,22 +33,16 @@ public class AsciiArt {
     // mostrada quando o jogador aperta Esc no menu principal
     static String msgSair =
                                         "\r\n\n\n\n\n\n\n\n\n\n" + //
-                                        "\t\t        ████████╗  ██████╗ ██╗  ██╗  █████╗  ██╗   ██╗ ██╗\r\n" + //
-                                        "\t\t        ╚══██╔══╝ ██╔════╝ ██║  ██║ ██╔══██╗ ██║   ██║ ██║\r\n" + //
-                                        "\t\t           ██║    ██║      ███████║ ███████║ ██║   ██║ ██║\r\n" + //
-                                        "\t\t           ██║    ██║      ██╔══██║ ██╔══██║ ██║   ██║ ╚═╝\r\n" + //
-                                        "\t\t           ██║    ╚██████╗ ██║  ██║ ██║  ██║ ╚██████╔╝ ██╗\r\n" + //
-                                        "\t\t           ╚═╝     ╚═════╝ ╚═╝  ╚═╝ ╚═╝  ╚═╝  ╚═════╝  ╚═╝\r\n" + //
+                                        "\t\t                    ███████╗ ██╗ ███╗   ███╗\r\n" + //
+                                        "\t\t                    ██╔════╝ ██║ ████╗ ████║\r\n" + //
+                                        "\t\t                    █████╗   ██║ ██╔████╔██║\r\n" + //
+                                        "\t\t                    ██╔══╝   ██║ ██║╚██╔╝██║\r\n" + //
+                                        "\t\t                    ██║      ██║ ██║ ╚═╝ ██║\r\n" + //
+                                        "\t\t                    ╚═╝      ╚═╝ ╚═╝     ╚═╝\r\n" + //
                                         "\r\n" + //
-                                        "\t\t        ╔═══╦═══╦═══╗\r\n" + //
-                                        "\t\t        ║ 1 ║ 2 ║ 3 ║     As peças vão ficar esperando\r\n" + //
-                                        "\t\t        ╠═══╬═══╬═══╣     por você...\r\n" + //
-                                        "\t\t        ║ 4 ║ 5 ║ 6 ║\r\n" + //
-                                        "\t\t        ╠═══╬═══╬═══╣\r\n" + //
-                                        "\t\t        ║ 7 ║ 8 ║   ║\r\n" + //
-                                        "\t\t        ╚═══╩═══╩═══╝\r\n" + //
+                                        "\t\t          O jogo acabou, mas o cérebro continua treinando!\r\n" + //
                                         "\r\n" + //
-                                        "\t\t        ·  *  ·   v o l t e   s e m p r e   ·  *  ·\r\n";
+                                        "\t\t             ·  *  ·   a t é   a   p r ó x i m a   ·  *  ·\r\n";
 
     static String msgVitoria1 =
     
@@ -133,7 +127,7 @@ public class AsciiArt {
                 "\t\t        -=+--++=++++.               \r\n" + //
                 "\t\t";
 
-    static String msgAdeusEsc = 
+    static String msgAdeus = 
                 "\n\n\n\n\n\n\n\n\n\n" + //
                 "\t\t ████████╗  ██████╗ ██╗  ██╗  █████╗  ██╗   ██╗ ██╗\r\n" + //
                 "\t\t ╚══██╔══╝ ██╔════╝ ██║  ██║ ██╔══██╗ ██║   ██║ ██║\r\n" + //
