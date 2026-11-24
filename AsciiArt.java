@@ -86,7 +86,7 @@ public class AsciiArt {
 
 
     static String msgVitoria2 =
-                "\t\t          -==--                     \r\n" + //
+                "\n\n\t\t          -==--                     \r\n" + //
                 "\t\t       +**++++++*-                  \r\n" + //
                 "\t\t      ++**++++++++-                 \r\n" + //
                 "\t\t     :*++**+*+*+***                 \r\n" + //

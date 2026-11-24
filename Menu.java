@@ -3,46 +3,19 @@ import com.sun.jna.Native;
 
 public class Menu {
 
-    public interface Crt extends Library {
-        Crt INSTANCE = Native.load("msvcrt", Crt.class);
-        int _kbhit();
-        int _getch();
-    }
-
     static boolean windows = System.getProperty("os.name").toLowerCase().contains("win");
     static boolean tecladoPreparado = false;
 
     public static boolean pressionouTecla() {
         if (windows) {
-            return Crt.INSTANCE._kbhit() != 0;
+            return KeboardManager.Crt.INSTANCE._kbhit() != 0;
         }
-        prepararTecladoMacLinux();
+        KeboardManager.prepararTecladoMacLinux();
         try {
             return System.in.available() > 0;
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public static int obtemTeclaPressionada() {
-        if (windows) {
-            return Crt.INSTANCE._getch();
-        }
-        prepararTecladoMacLinux();
-        try {
-            return System.in.read();
-        } catch (Exception e) {
-            return -1;
-        }
-    }
-
-    static void prepararTecladoMacLinux() {
-        if (tecladoPreparado) {
-            return;
-        }
-        tecladoPreparado = true;
-        executarStty("-icanon -echo -icrnl min 1"); // -icrnl: ENTER vira 13, igual ao Windows
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> executarStty("sane")));
     }
 
     static void executarStty(String opcoes) {
@@ -51,12 +24,6 @@ public class Menu {
         } catch (Exception e) {
 
         }
-    }
-  
-
-    public static void limparConsole() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 
     public static final int PRETO      = 0;
@@ -83,7 +50,7 @@ public class Menu {
 
         SoundManager.tocarSom("Sons/menu.wav", false);
 
-        limparConsole();
+        KeboardManager.limparConsole();
         System.out.println("\n\n\n\n\n\n\n\n\n\n");
         mudarCor(AMARELO);
         System.out.println(AsciiArt.titulo);
@@ -119,7 +86,7 @@ public class Menu {
         
         while (true) {            
             if ( pressionouTecla()) {
-                int ch = obtemTeclaPressionada();     
+                int ch = KeboardManager.obtemTeclaPressionada();     
                 
                 switch (ch) {
                     case 'w':
@@ -166,24 +133,24 @@ public class Menu {
 
             switch (opcaoSelecionada) {
                 case 0:
-                    limparConsole();
+                    KeboardManager.limparConsole();
                     TabuleiroManager.jogar();
                     break;
                 case 1:
-                    limparConsole();
+                    KeboardManager.limparConsole();
                     TabuleiroManager.carregarJogo();
                     break;
                 case 2:
                     configManagers();
                     break;
                 case 3:
-                    limparConsole();
+                    KeboardManager.limparConsole();
                     int[][] tab = TabuleiroManager.criarMatrizInteira(tamanho);
                     TabuleiroManager.embaralharTabuleiroInteiro(tab, embaralhamentos);
                     ResolverSozinho.resolverEMostrar(tab, 500);
                     break;
-                case -1:
-                    limparConsole();
+                case 27:
+                    KeboardManager.limparConsole();
                     mudarCor(AMARELO);
                     System.out.println(AsciiArt.msgAdeusEsc);
                     SoundManager.tocarSom("Sons/menuEsc.wav", true);
@@ -195,7 +162,7 @@ public class Menu {
 
             }
 
-            limparConsole();
+            KeboardManager.limparConsole();
         }
     }
 
