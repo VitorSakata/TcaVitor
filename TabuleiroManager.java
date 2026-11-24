@@ -141,9 +141,9 @@ public class TabuleiroManager {
 
         System.out.println();
         Menu.mudarCor(Menu.COR_PADRAO);
-        System.out.printf("\t   Movimentos: %d\t Movimentos recorde: %d\n", KeboardManager.movimentos, movimentosRecorde);
+        System.out.printf("\t\tMovimentos: %d\t Movimentos recorde: %d\n", KeboardManager.movimentos, movimentosRecorde);
         System.out.println();
-        System.out.printf("\t      Tempo: %.1fs\t Tempo recorde: %.1f\n\n", segundosPassados(), tempoRecorde);
+        System.out.printf("\t\tTempo: %.1fs\t Tempo recorde: %.1f\n\n", segundosPassados(), tempoRecorde);
         Menu.mudarCor(Menu.COR_PADRAO); 
         System.out.printf("\n");
 

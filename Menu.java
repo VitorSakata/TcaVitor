@@ -182,7 +182,13 @@ public class Menu {
                     TabuleiroManager.embaralharTabuleiroInteiro(tab, embaralhamentos);
                     ResolverSozinho.resolverEMostrar(tab, 500);
                     break;
-
+                case -1:
+                    limparConsole();
+                    mudarCor(AMARELO);
+                    System.out.println(AsciiArt.msgAdeusEsc);
+                    SoundManager.tocarSom("Sons/menuEsc.wav", true);
+                    mudarCor(COR_PADRAO);
+                    System.exit(0);
                 default:
                     System.out.println("\n\nOpção inválida.\n\n");
                     break;
