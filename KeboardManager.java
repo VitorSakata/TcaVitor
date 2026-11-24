@@ -46,7 +46,11 @@ public class KeboardManager{
         System.out.flush();
     }
 
+    public static int movimentos = 0;
+
     public static int[][] MoverPeca(int[][] tabuleiro) {
+
+        
 
         String Nome_Arquivo = "savegame.txt";
 
@@ -111,7 +115,7 @@ public class KeboardManager{
 
             tabuleiro[linhas][colunas] = tabuleiro[moverLinha][moverColuna];
             tabuleiro[moverLinha][moverColuna] = 0;
-            TabuleiroManager.movimentos++;
+            movimentos++;
         }
 
         if(TabuleiroManager.verificarVitoria(tabuleiro) == true){
@@ -119,15 +123,14 @@ public class KeboardManager{
             double tempo = TabuleiroManager.segundosPassados();
             boolean novoRecorde = Recorde.salvarRecorde(tempo);
 
-            int movimentos = TabuleiroManager.movimentos;
             boolean recordeMov = MovimentosRecorde.salvarRecorde(movimentos);
             
             if(novoRecorde){
                 Menu.mudarCor(Menu.VERDE);
-                System.out.println("\n\n\n\\n\n\n\t\tNovo recorde! Tempo: " + tempo + " segundos");
+                System.out.println("\n\n\n\\n\n\n\t\tNovo recorde! Tempo: " + tempo + " segundos\n");
                 Menu.mudarCor(Menu.COR_PADRAO);
             } else {
-                System.out.println("\n\n\n\n\n\n\t\tTempo: " + tempo + " segundos");
+                System.out.println("\n\n\n\n\n\n\t\tTempo: " + tempo + " segundos\n");
             }
 
             if(recordeMov){
@@ -135,12 +138,12 @@ public class KeboardManager{
                 System.out.println("\t\tNovo recorde! Movimentos: " + movimentos);
                 Menu.mudarCor(Menu.COR_PADRAO);
             } else {
-                System.out.println("\t\tMovimentos: " + movimentos);
+                System.out.println("\t\tMovimentos:" + movimentos);
             }
 
             if(Menu.embaralhamentos == 300 && Menu.tamanho == 5){
-                SoundManager.tocarSom("Sons/vitoria.wav", true);
                 System.out.println(AsciiArt.msgVitoria2);
+                SoundManager.tocarSom("Sons/vitoria.wav", true);
             }else{
                 Menu.mudarCor(Menu.AMARELO);
                 System.out.println(AsciiArt.msgVitoria1);

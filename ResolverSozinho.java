@@ -58,7 +58,7 @@ public class ResolverSozinho {
         return copia;
     }
 
-    // Devolve as teclas que resolvem o tabuleiro (ex.: "DSAW..."),
+    // Devolve as teclas que resolvem o tabuleiro
     // ou null se não encontrar solução.
     public static String resolver(int[][] inicial) {
 
@@ -133,20 +133,48 @@ public class ResolverSozinho {
 
     // Imprime o tabuleiro (o vazio aparece como espaço).
     static void imprimir(int[][] mat) {
-        for(int i = 0; i < mat.length; i++){
 
-            System.out.printf("\n");
-            for(int j = 0; j < mat.length; j++){
+        int linhas, colunas;
+        linhas = mat.length;
+        colunas = mat[0].length;
+        int largura = 6;
 
+        
+
+        Menu.mudarCor(Menu.AMARELO);
+        TabuleiroManager.imprimirLinhaSeparadora(colunas, largura, "╔", "╦", "╗");
+        Menu.mudarCor(Menu.AMARELO);
+
+        for(int i = 0; i < linhas; i++){
+            Menu.mudarCor(Menu.AMARELO);
+            System.out.printf("\t\t║");
+            Menu.mudarCor(Menu.COR_PADRAO);
+            for(int j = 0; j < colunas; j++){
 
                 if(mat[i][j] == 0){
-                    System.out.print("\t");
+                    System.out.print(" ".repeat(largura));
+                    
                 }else{
-                    System.out.printf("%2d\t", mat[i][j]);
+                    System.out.printf("%" + (largura - 1) + "d ", mat[i][j]);
+                    
                 }
+                Menu.mudarCor(Menu.AMARELO);
+                System.out.print("║");
+                Menu.mudarCor(Menu.COR_PADRAO);
             }
-            System.out.println("\n");
+            System.out.println();
+
+            if(i < linhas - 1){
+                Menu.mudarCor(Menu.AMARELO);
+                TabuleiroManager.imprimirLinhaSeparadora(colunas, largura, "╠", "╬", "╣");
+                Menu.mudarCor(Menu.COR_PADRAO);
+            }
+
         }
+
+        Menu.mudarCor(Menu.AMARELO);
+        TabuleiroManager.imprimirLinhaSeparadora(colunas, largura, "╚", "╩", "╝");
+        Menu.mudarCor(Menu.COR_PADRAO);
     }
 
     // Traduz a letra para um texto que dá para usar no metodo resolverEMostrar.
@@ -186,7 +214,9 @@ public class ResolverSozinho {
 
         KeboardManager.limparConsole();
 
-        System.out.println("Tabuleiro inicial:");
+        System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+        System.out.println("\t\tTabuleiro inicial:");
         imprimir(tabuleiro);
 
         String caminho = resolver(tabuleiro);
@@ -210,7 +240,9 @@ public class ResolverSozinho {
             char letra = caminho.charAt(passo);
             moverVazio(tab, letra);
 
-            System.out.println("Jogada perfeita " + (passo + 1) + " de " + caminho.length() + ": " + nomeDoMovimento(letra));
+            System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+            System.out.println("\t\tJogada perfeita " + (passo + 1) + " de " + caminho.length() + ": " + nomeDoMovimento(letra) + "\n");
             imprimir(tab);
 
             try {

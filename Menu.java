@@ -84,29 +84,29 @@ public class Menu {
         SoundManager.tocarSom("Sons/menu.wav", false);
 
         limparConsole();
-        System.out.println("\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n\n");
         mudarCor(AMARELO);
         System.out.println(AsciiArt.titulo);
         mudarCor(COR_PADRAO);
         mudarCor(MAGENTA);
-        System.out.println("          ───── o quebra-cabeça dos números ─────");
+        System.out.println("\t\t          ───── o quebra-cabeça dos números ─────");
         mudarCor(COR_PADRAO);
         System.out.println();
-        System.out.println("\t\t");
-        System.out.println("\t\t  "+tituloMenu+"    ");
-        System.out.println("\t\t");
+        System.out.println("\t\t\t");
+        System.out.println("\t\t\t  "+tituloMenu+"    ");
+        System.out.println("\t\t\t");
         for (int i = 0; i < opcoes.length; i++) {
             if (i == opcaoSelecionada) {
-                System.out.print("\t\t[               ] ");
+                System.out.print("\t\t\t[               ] ");
                 mudarCor(VERDE);
                 System.out.print(opcoes[i]);
                 mudarCor(COR_PADRAO); // volta para a cor padrão
                 System.out.println("  ");
             } else {
-                System.out.println("\t\t  " + opcoes[i] +"  ");
+                System.out.println("\t\t\t  " + opcoes[i] +"  ");
             }
         }
-        System.out.println("\t\t");
+        System.out.println("\t");
         System.out.println();
 
     }
@@ -157,8 +157,6 @@ public class Menu {
             "NOVO JOGO        ",
             "CARREGAR JOGO    ",
             "CONFIGURAÇÕES    ",
-            "AJUDA            ",
-            "SOBRE            ",
             "RESOLVER SOZINHO ",
         }; 
 
@@ -176,22 +174,13 @@ public class Menu {
                     TabuleiroManager.carregarJogo();
                     break;
                 case 2:
-                configManagers();
-
+                    configManagers();
+                    break;
                 case 3:
-                    System.out.println("\n\nAjuda selecionado.\n\n");
-                    break;
-
-                case 4:
-                    System.out.println("\n\nSobre selecionado.\n\n");           
-                    break;
-
-                case 5:
                     limparConsole();
                     int[][] tab = TabuleiroManager.criarMatrizInteira(tamanho);
                     TabuleiroManager.embaralharTabuleiroInteiro(tab, embaralhamentos);
                     ResolverSozinho.resolverEMostrar(tab, 500);
-                    
                     break;
 
                 default:

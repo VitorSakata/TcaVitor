@@ -37,21 +37,29 @@ public class TabuleiroManager {
 
     public static void carregarJogo(){
 
-            int[][] tabuleiro = textoParaTabuleiro(SaveGameManager.lerDoArquivo("savegame.txt"));
+        String texto = (SaveGameManager.lerDoArquivo("savegame.txt"));
 
-            iniciarCronometro();
+        if(texto == null){
+            return;
+        }
 
-            imprimirMatrizInteiro(tabuleiro);
+        int[][] tabuleiro = textoParaTabuleiro(SaveGameManager.lerDoArquivo("savegame.txt"));
 
-            while (verificarVitoria(tabuleiro) == false) {
-                tabuleiro = KeboardManager.MoverPeca(tabuleiro);
-            }
+        iniciarCronometro();
+            
+        inicioCronometro -= (long)(tempoSalvo * 1000);
+
+        imprimirMatrizInteiro(tabuleiro);
+
+        while (verificarVitoria(tabuleiro) == false) {
+            tabuleiro = KeboardManager.MoverPeca(tabuleiro);
+        }
     }
 
     //transforma o tabuleiro em texto para salvar no arquivo
     public static String tabuleiroParaTexto(int[][] tabuleiro){
 
-        String texto = movimentos + "\n";
+        String texto = KeboardManager.movimentos + "\n" + segundosPassados() + "\n"; 
 
         for(int i = 0; i < tabuleiro.length; i++){
             for(int j = 0; j < tabuleiro[0].length; j++){
@@ -71,13 +79,14 @@ public class TabuleiroManager {
 
         String[] linhas = texto.trim().split("\n");
 
-        movimentos = Integer.parseInt(linhas[0].trim());
+        KeboardManager.movimentos = Integer.parseInt(linhas[0].trim());
+        tempoSalvo = Double.parseDouble(linhas[1].trim());
 
-        int tamanho = linhas.length - 1;
+        int tamanho = linhas.length - 2;
         int[][] tabuleiro = new int[tamanho][tamanho];
 
         for(int i = 0; i < tamanho; i++){
-            String[] numeros = linhas[i + 1].trim().split(" ");
+            String[] numeros = linhas[i + 2].trim().split(" ");
 
             for(int j = 0; j < tamanho; j++){
                 tabuleiro[i][j] = Integer.parseInt(numeros[j]);
@@ -90,7 +99,6 @@ public class TabuleiroManager {
     public static void imprimirLinhaSeparadora(int colunas, int largura, String esquerda, String meio, String direita) {
         System.out.print("\t\t" + esquerda);
         for (int i = 0; i < colunas; i++) {
-            
             System.out.print("═".repeat(largura));
             if (i < colunas - 1) {
                 System.out.print(meio);
@@ -113,26 +121,39 @@ public class TabuleiroManager {
         double tempoRecorde = Recorde.carregarRecorde();
         int movimentosRecorde = MovimentosRecorde.carregarRecorde();
 
-        System.out.printf("\n\n\n\n\n\n");
+        System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
         
+        Menu.mudarCor(Menu.AMARELO);
         imprimirLinhaSeparadora(colunas, largura, "╔", "═", "╗");
+        Menu.mudarCor(Menu.AMARELO);
+        
+        Menu.mudarCor(Menu.COR_PADRAO);
         System.out.printf("\t\t║\tTabuleiro: %d x %d    ║\n",linhas, colunas);
+        Menu.mudarCor(Menu.COR_PADRAO);
+
+        Menu.mudarCor(Menu.AMARELO);
         imprimirLinhaSeparadora(colunas, largura, "╚", "═", "╝");
+        Menu.mudarCor(Menu.AMARELO);
 
         System.out.println();
-        System.out.printf("\t   Movimentos: %d\t Movimentos recorde: %d\n", movimentos, movimentosRecorde);
+        Menu.mudarCor(Menu.COR_PADRAO);
+        System.out.printf("\t   Movimentos: %d\t Movimentos recorde: %d\n", KeboardManager.movimentos, movimentosRecorde);
         System.out.println();
         System.out.printf("\t      Tempo: %.1fs\t Tempo recorde: %.1f\n\n", segundosPassados(), tempoRecorde);
-
+        Menu.mudarCor(Menu.COR_PADRAO);
         System.out.printf("\n");
 
         largura = 6;
         //coloca a parte de cima do tabuleiro
+        Menu.mudarCor(Menu.AMARELO);
         imprimirLinhaSeparadora(colunas, largura, "╔", "╦", "╗");
+        Menu.mudarCor(Menu.AMARELO);
 
         //percorre as linhas da matriz, e para cada linha percorre as colunas, imprimindo o valor da posição atual;
         for(int i = 0; i < linhas; i++){
+            Menu.mudarCor(Menu.AMARELO);
             System.out.printf("\t\t║");
+            Menu.mudarCor(Menu.COR_PADRAO);
             for(int j = 0; j < colunas; j++){
 
                 if(mat[i][j] == 0){
@@ -142,20 +163,26 @@ public class TabuleiroManager {
                     System.out.printf("%" + (largura - 1) + "d ", mat[i][j]);
                     
                 }
-               
+                Menu.mudarCor(Menu.AMARELO);
                 System.out.print("║");
-                
+                Menu.mudarCor(Menu.COR_PADRAO);
             }
             System.out.println();
 
             if(i < linhas - 1){
+                Menu.mudarCor(Menu.AMARELO);
                 imprimirLinhaSeparadora(colunas, largura, "╠", "╬", "╣");
+                Menu.mudarCor(Menu.COR_PADRAO);
             }
+
         }
 
         //coloca a parte de baixo do tabuleiro
+        Menu.mudarCor(Menu.AMARELO);
         imprimirLinhaSeparadora(colunas, largura, "╚", "╩", "╝");
-        
+        Menu.mudarCor(Menu.COR_PADRAO);
+        System.out.println("\n\t\tW A S D: mova as peças adjacentes ao vazio ");
+        System.out.println("\t\tESC:  Sair do jogo");
     }
 
         //usa a matriz ja feita e embaralha ela
@@ -227,13 +254,16 @@ public class TabuleiroManager {
         
         }
 
-    public static int movimentos = 0;
+    
 
 
     // ===================================================================
     // Disponibilizado pelo professor
     // Guarda o momento em que o cronômetro começou (em milissegundos)
     static long inicioCronometro = 0;
+
+    // tempo lido do savegame.txt (em segundos)
+    static double tempoSalvo = 0;
 
     // Começa (ou recomeça) a contar o tempo do zero.
     public static void iniciarCronometro() {
