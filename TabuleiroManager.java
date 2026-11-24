@@ -114,16 +114,19 @@ public class TabuleiroManager {
         int movimentosRecorde = MovimentosRecorde.carregarRecorde();
 
         System.out.printf("\n\n\n\n\n\n");
+        
+        imprimirLinhaSeparadora(colunas, largura, "╔", "═", "╗");
+        System.out.printf("\t\t║\tTabuleiro: %d x %d    ║\n",linhas, colunas);
+        imprimirLinhaSeparadora(colunas, largura, "╚", "═", "╝");
 
-        System.out.printf("\t\tTabuleiro: %d x %d\n\n",linhas, colunas);
-
-        System.out.printf("\t\tMovimentos: %d\t\t Movimentos recorde: %d\n", movimentos, movimentosRecorde);
-
-        System.out.printf("\t\tTempo: %.1fs\t\t Tempo recorde: %.1f\n\n", segundosPassados(), tempoRecorde);
+        System.out.println();
+        System.out.printf("\t   Movimentos: %d\t Movimentos recorde: %d\n", movimentos, movimentosRecorde);
+        System.out.println();
+        System.out.printf("\t      Tempo: %.1fs\t Tempo recorde: %.1f\n\n", segundosPassados(), tempoRecorde);
 
         System.out.printf("\n");
 
-        
+        largura = 6;
         //coloca a parte de cima do tabuleiro
         imprimirLinhaSeparadora(colunas, largura, "╔", "╦", "╗");
 
