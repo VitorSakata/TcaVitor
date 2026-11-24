@@ -114,18 +114,8 @@ public class TabuleiroManager {
         System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
         
         Menu.mudarCor(Menu.AMARELO);
-        imprimirLinhaSeparadora(colunas, largura, "╔", "═", "╗");
-        Menu.mudarCor(Menu.AMARELO);
-        
-        Menu.mudarCor(Menu.AMARELO);
-        System.out.printf("\t\t║");
-        System.out.printf("\tTabuleiro: %d x %d    ",linhas, colunas);
-        System.out.printf("║\n");
+        System.out.printf("\t\t\tTabuleiro: %d x %d    \n",linhas, colunas);
         Menu.mudarCor(Menu.COR_PADRAO);
-
-        Menu.mudarCor(Menu.AMARELO);
-        imprimirLinhaSeparadora(colunas, largura, "╚", "═", "╝");
-        Menu.mudarCor(Menu.AMARELO);
 
         System.out.println();
         Menu.mudarCor(Menu.COR_PADRAO);

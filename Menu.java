@@ -149,7 +149,7 @@ public class Menu {
                     TabuleiroManager.embaralharTabuleiroInteiro(tab, embaralhamentos);
                     ResolverSozinho.resolverEMostrar(tab, 500);
                     break;
-                case 27:
+                case -1:
                     KeboardManager.limparConsole();
                     mudarCor(AMARELO);
                     System.out.println(AsciiArt.msgAdeusEsc);
