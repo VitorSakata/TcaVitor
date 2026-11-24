@@ -54,20 +54,20 @@ public class KeboardManager{
 
         String Nome_Arquivo = "savegame.txt";
 
-        int linhas = 0;
-        int colunas = 0;
+        int linhaVazia = 0;
+        int colunaVazia = 0;
 
         for(int i = 0; i < tabuleiro.length; i++){
             for(int j = 0; j < tabuleiro[0].length; j++){
                 if(tabuleiro[i][j] == 0){
-                    linhas = i;
-                    colunas = j;
+                    linhaVazia = i;
+                    colunaVazia = j;
                 }
             }
         }
 
-        int moverLinha = linhas;
-        int moverColuna = colunas;
+        int moverLinha = linhaVazia;
+        int moverColuna = colunaVazia;
 
         char tecla = (char)obtemTeclaPressionada();
         limparConsole();
@@ -113,7 +113,7 @@ public class KeboardManager{
         if(moverLinha >= 0 && moverLinha < tabuleiro.length &&
             moverColuna >= 0 && moverColuna < tabuleiro[0].length){
 
-            tabuleiro[linhas][colunas] = tabuleiro[moverLinha][moverColuna];
+            tabuleiro[linhaVazia][colunaVazia] = tabuleiro[moverLinha][moverColuna];
             tabuleiro[moverLinha][moverColuna] = 0;
             movimentos++;
         }
@@ -121,11 +121,11 @@ public class KeboardManager{
         if(TabuleiroManager.verificarVitoria(tabuleiro) == true){
             
             double tempo = TabuleiroManager.segundosPassados();
-            boolean novoRecorde = Recorde.salvarRecorde(tempo);
+            boolean recordeTempo = Recorde.salvarRecorde(tempo);
 
-            boolean recordeMov = MovimentosRecorde.salvarRecorde(movimentos);
+            boolean recordeMovimentos = MovimentosRecorde.salvarRecorde(movimentos);
             
-            if(novoRecorde){
+            if(recordeTempo){
                 Menu.mudarCor(Menu.VERDE);
                 System.out.println("\n\n\n\\n\n\n\t\tNovo recorde! Tempo: " + tempo + " segundos\n");
                 Menu.mudarCor(Menu.COR_PADRAO);
@@ -133,7 +133,7 @@ public class KeboardManager{
                 System.out.println("\n\n\n\n\n\n\t\tTempo: " + tempo + " segundos\n");
             }
 
-            if(recordeMov){
+            if(recordeMovimentos){
                 Menu.mudarCor(Menu.VERDE);
                 System.out.println("\t\tNovo recorde! Movimentos: " + movimentos);
                 Menu.mudarCor(Menu.COR_PADRAO);
