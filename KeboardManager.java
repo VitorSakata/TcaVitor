@@ -50,11 +50,8 @@ public class KeboardManager{
 
     public static boolean voltarAoMenu = false;
 
+    //fução de mover a peça no tabuleiro
     public static int[][] MoverPeca(int[][] tabuleiro) {
-
-        
-
-        String Nome_Arquivo = "savegame.txt";
 
         int linhaVazia = 0;
         int colunaVazia = 0;
@@ -68,98 +65,48 @@ public class KeboardManager{
             }
         }
 
-        int moverLinha = linhaVazia;
-        int moverColuna = colunaVazia;
+        int linhaAtual = linhaVazia;
+        int colunaAtual = colunaVazia;
 
         char tecla = (char)obtemTeclaPressionada();
         limparConsole();
         SoundManager.tocarSom("Sons/mover.wav", false);
 
         switch (tecla) {
-    case 'w':
-    case 'W':
-        moverLinha++;
-        break;
-    case 's':
-    case 'S':
-        moverLinha--;
-        break;
-    case 'a':
-    case 'A':
-        moverColuna++;
-        break;
-    case 'd':
-    case 'D':
-        moverColuna--;
-        break;
-    case 27:
-
-        System.out.println("Deseja salvar seu progresso? (S/Esc)");
-
-        String dadosParaSalvar = (TabuleiroManager.tabuleiroParaTexto(tabuleiro));
-
-        switch((char)obtemTeclaPressionada()){
+            case 'w':
+            case 'W':
+                linhaAtual++;
+                break;
             case 's':
             case 'S':
-
-            SaveGameManager.escreverNoArquivo(Nome_Arquivo, dadosParaSalvar);
+                linhaAtual--;
+                break;
+            case 'a':
+            case 'A':
+                colunaAtual++;
+                break;
+            case 'd':
+            case 'D':
+                colunaAtual--;
+                break;
+            case 27:
+    
+            TabuleiroManager.SalvarJogo(tabuleiro);
         }
 
-        limparConsole();
-        Menu.mudarCor(Menu.AMARELO);
-        System.out.println(AsciiArt.msgAdeus);
-        Menu.mudarCor(Menu.COR_PADRAO);
-        SoundManager.tocarSom("Sons/esc.wav", true);
-        voltarAoMenu = true;   
-        return tabuleiro;
-        }
+        if(linhaAtual >= 0 && linhaAtual < tabuleiro.length &&
+            colunaAtual >= 0 && colunaAtual < tabuleiro[0].length){
 
-        if(moverLinha >= 0 && moverLinha < tabuleiro.length &&
-            moverColuna >= 0 && moverColuna < tabuleiro[0].length){
-
-            tabuleiro[linhaVazia][colunaVazia] = tabuleiro[moverLinha][moverColuna];
-            tabuleiro[moverLinha][moverColuna] = 0;
+            tabuleiro[linhaVazia][colunaVazia] = tabuleiro[linhaAtual][colunaAtual];
+            tabuleiro[linhaAtual][colunaAtual] = 0;
             movimentos++;
         }
 
-        if(TabuleiroManager.verificarVitoria(tabuleiro) == true){
-            
-            double tempo = TabuleiroManager.segundosPassados();
-            boolean recordeTempo = Recorde.salvarRecorde(tempo);
-
-            boolean recordeMovimentos = MovimentosRecorde.salvarRecorde(movimentos);
-            
-            if(recordeTempo){
-                Menu.mudarCor(Menu.VERDE);
-                System.out.println("\n\n\n\n\n\n\t\tNovo recorde! Tempo: " + tempo + " segundos\n");
-                Menu.mudarCor(Menu.COR_PADRAO);
-            } else {
-                System.out.println("\n\n\n\n\n\n\t\tTempo: " + tempo + " segundos\n");
-            }
-
-            if(recordeMovimentos){
-                Menu.mudarCor(Menu.VERDE);
-                System.out.println("\t\tNovo recorde! Movimentos: " + movimentos);
-                Menu.mudarCor(Menu.COR_PADRAO);
-            } else {
-                System.out.println("\t\tMovimentos:" + movimentos);
-            }
-
-            if(Menu.embaralhamentos == 300 && Menu.tamanho == 5){
-                System.out.println(AsciiArt.msgVitoria2);
-                SoundManager.tocarSom("Sons/vitoria.wav", true);
-            }else{
-                Menu.mudarCor(Menu.AMARELO);
-                System.out.println(AsciiArt.msgVitoria1);
-                Menu.mudarCor(Menu.COR_PADRAO);
-                SoundManager.tocarSom("Sons/vitoria.wav", true);
-            }
-
-            
-        }
+        TabuleiroManager.VerificarRecorde(tabuleiro);
 
         TabuleiroManager.imprimirMatrizInteiro(tabuleiro);
         
         return tabuleiro;
     }
 }
+

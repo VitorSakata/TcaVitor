@@ -86,9 +86,9 @@ public class Menu {
         
         while (true) {            
             if ( pressionouTecla()) {
-                int ch = KeboardManager.obtemTeclaPressionada();     
+                int teclaPressionada = KeboardManager.obtemTeclaPressionada();     
                 
-                switch (ch) {
+                switch (teclaPressionada) {
                     case 'w':
                     case 'W':
                         opcaoSelecionada--;
@@ -109,7 +109,6 @@ public class Menu {
 
                     case 13: 
                         return opcaoSelecionada;
-
                     case 27: 
                         return -1; 
                 }
