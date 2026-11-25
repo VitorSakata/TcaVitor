@@ -156,6 +156,7 @@ public class Menu {
                     SoundManager.tocarSom("Sons/menuEsc.wav", true);
                     mudarCor(COR_PADRAO);
                     System.exit(0);
+                    break;
                 default:
                     System.out.println("\n\nOpção inválida.\n\n");
                     break;

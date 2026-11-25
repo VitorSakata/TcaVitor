@@ -48,6 +48,8 @@ public class KeboardManager{
 
     public static int movimentos = 0;
 
+    public static boolean voltarAoMenu = false;
+
     public static int[][] MoverPeca(int[][] tabuleiro) {
 
         
@@ -102,12 +104,14 @@ public class KeboardManager{
 
             SaveGameManager.escreverNoArquivo(Nome_Arquivo, dadosParaSalvar);
         }
+
         limparConsole();
         Menu.mudarCor(Menu.AMARELO);
         System.out.println(AsciiArt.msgAdeus);
         Menu.mudarCor(Menu.COR_PADRAO);
         SoundManager.tocarSom("Sons/esc.wav", true);
-        System.exit(0);
+        voltarAoMenu = true;   
+        return tabuleiro;
         }
 
         if(moverLinha >= 0 && moverLinha < tabuleiro.length &&
@@ -127,7 +131,7 @@ public class KeboardManager{
             
             if(recordeTempo){
                 Menu.mudarCor(Menu.VERDE);
-                System.out.println("\n\n\n\\n\n\n\t\tNovo recorde! Tempo: " + tempo + " segundos\n");
+                System.out.println("\n\n\n\n\n\n\t\tNovo recorde! Tempo: " + tempo + " segundos\n");
                 Menu.mudarCor(Menu.COR_PADRAO);
             } else {
                 System.out.println("\n\n\n\n\n\n\t\tTempo: " + tempo + " segundos\n");

@@ -216,7 +216,7 @@ public class ResolverSozinho {
 
         System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
-        System.out.println("\t\tTabuleiro inicial:");
+        System.out.println("\t\tTabuleiro inicial:\n");
         imprimir(tabuleiro);
 
         String caminho = resolver(tabuleiro);
