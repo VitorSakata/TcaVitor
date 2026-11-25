@@ -123,7 +123,7 @@ public class TabuleiroManager {
         }
 
         //Esses dois vetores guardam as direções que a peça vazia pode se mover;
-        //cada posição do vetor representa uma direção, [0] = cima, [1] = baixo, [2] = esquerda, [3] = direita;
+        // [0] = cima, [1] = baixo, [2] = esquerda, [3] = direita;
         int direçaoLinha[] = {-1, 1, 0, 0};
         int direçaoColuna[] = {0, 0, -1, 1};
         
@@ -156,7 +156,7 @@ public class TabuleiroManager {
         iniciarCronometro();
         imprimirMatrizInteiro(tabuleiro);
         KeboardManager.voltarAoMenu = false;
-        
+
         while (verificarVitoria(tabuleiro) == false && KeboardManager.voltarAoMenu == false) {
             tabuleiro = KeboardManager.MoverPeca(tabuleiro);
         }
@@ -167,15 +167,17 @@ public class TabuleiroManager {
         String texto = (SaveGameManager.lerDoArquivo("savegame.txt"));
         if(texto == null || texto.trim().isEmpty()){
             return;
+        }else{
+            int[][] tabuleiro = textoParaTabuleiro(texto);
+            iniciarCronometro();
+            imprimirMatrizInteiro(tabuleiro);
+            KeboardManager.voltarAoMenu = false;
+            
+            while (verificarVitoria(tabuleiro) == false && KeboardManager.voltarAoMenu == false) {
+                tabuleiro = KeboardManager.MoverPeca(tabuleiro);
+            }
         }
-        int[][] tabuleiro = textoParaTabuleiro(texto);
-        iniciarCronometro();
-        inicioCronometro -= (long)(tempoSalvo * 1000);
-        imprimirMatrizInteiro(tabuleiro);
-        KeboardManager.voltarAoMenu = false;
-        while (verificarVitoria(tabuleiro) == false && KeboardManager.voltarAoMenu == false) {
-            tabuleiro = KeboardManager.MoverPeca(tabuleiro);
-        }
+        
     }
 
     //transforma o tabuleiro em texto para salvar no arquivo
@@ -281,7 +283,7 @@ public class TabuleiroManager {
 
         return;
     }
-
+    
     public static boolean verificarVitoria(int[][] tabuleiro){
         int tamanho = tabuleiro.length;
         int valorEsperado = 1;
