@@ -298,7 +298,6 @@ public class TabuleiroManager {
                 if(tabuleiro[i][j] != valorEsperado){
                         return false;
                 }
-                    
                 valorEsperado++;
             }
         }
