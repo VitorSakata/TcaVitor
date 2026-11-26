@@ -22,26 +22,29 @@ public class TabuleiroManager {
 
     public static void jogar(){
 
-            int[][] tabuleiro = criarMatrizInteira(Menu.tamanho);
-            embaralharTabuleiroInteiro(tabuleiro, Menu.embaralhamentos);
-            iniciarCronometro();
-            imprimirMatrizInteiro(tabuleiro);
-            while (verificarVitoria(tabuleiro) == false) {
-                tabuleiro = KeboardManager.MoverPeca(tabuleiro);
-            }
+        int[][] tabuleiro = criarMatrizInteira(Menu.tamanho);
+        KeboardManager.movimentos = 0;
+        embaralharTabuleiroInteiro(tabuleiro, Menu.embaralhamentos);
+        iniciarCronometro();
+        imprimirMatrizInteiro(tabuleiro);
+        KeboardManager.voltarAoMenu = false;
+        while (verificarVitoria(tabuleiro) == false && KeboardManager.voltarAoMenu == false) {
+            tabuleiro = KeboardManager.MoverPeca(tabuleiro);
+        }
     }
 
     public static void carregarJogo(){
 
         String texto = (SaveGameManager.lerDoArquivo("savegame.txt"));
-        if(texto == null){
+        if(texto == null || texto.trim().isEmpty()){
             return;
         }
-        int[][] tabuleiro = textoParaTabuleiro(SaveGameManager.lerDoArquivo("savegame.txt"));
+        int[][] tabuleiro = textoParaTabuleiro(texto);
         iniciarCronometro();
         inicioCronometro -= (long)(tempoSalvo * 1000);
         imprimirMatrizInteiro(tabuleiro);
-        while (verificarVitoria(tabuleiro) == false) {
+        KeboardManager.voltarAoMenu = false;
+        while (verificarVitoria(tabuleiro) == false && KeboardManager.voltarAoMenu == false) {
             tabuleiro = KeboardManager.MoverPeca(tabuleiro);
         }
     }

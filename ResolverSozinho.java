@@ -1,9 +1,11 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.PriorityQueue;
+import java.util.Arrays;//usado para Arrays.deepToString, que transforma a matriz em texto.
+import java.util.HashSet;//conjunto sem repetição, usado para lembrar quais tabuleiros já foram explorados.
+import java.util.PriorityQueue;//: fila que sempre entrega o elemento de menor prioridade (no caso, menor f).
 
 public class ResolverSozinho {
 
+    // representa um tabuleiro em um ponto da busca
+    //É static para não depender de uma instância de ResolverSozinho
     static class No {
         int[][] tabuleiro;  // como o tabuleiro está
         int g;              // movimentos feitos desde o início
@@ -11,7 +13,9 @@ public class ResolverSozinho {
         No pai;             // de qual tabuleiro viemos
         char movimento;     // para onde o vazio andou para chegar aqui (W, S, A, D)
 
+        //construtor da classe No
         No(int[][] tabuleiro, int g, No pai, char movimento){
+            //atribui os valores passados para os atributos(this) do objeto
             this.tabuleiro = tabuleiro;
             this.g = g;
             this.h = manhattan(tabuleiro);
@@ -19,6 +23,7 @@ public class ResolverSozinho {
             this.movimento = movimento;
         }
 
+        //devolve a nota total do nó: g + h
         int f() {
             return g + h;
         }
@@ -33,26 +38,27 @@ public class ResolverSozinho {
     static int manhattan(int[][] tab) {
         int tamanho = tab.length;
         int soma = 0;
+
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
                 int valor = tab[i][j];
-                if (valor == 0) continue;                // o vazio não conta
+                if (valor == 0) continue;                // o vazio não conta e é pulado
 
                 int linhaCerta  = (valor - 1) / tamanho;  // onde o número deveria estar
-                int colunaCerta = (valor - 1) % tamanho;
+                int colunaCerta = (valor - 1) % tamanho;  // onde o número deveria estar
 
-                soma += Math.abs(i - linhaCerta) + Math.abs(j - colunaCerta);
+                soma += Math.abs(i - linhaCerta) + Math.abs(j - colunaCerta); //Soma a distância (linhas + colunas) entre onde a peça está e onde deveria estar.
             }
         }
-        return soma;
+        return soma;//devolve a soma, se for 0, todas as peça estao no lugar certo e o tabuleiro está resolvido.
     }
 
     // Copia a matriz (cada vizinho precisa ser um tabuleiro separado).
     static int[][] copiar(int[][] tab) {
-        int[][] copia = new int[tab.length][tab.length];
+        int[][] copia = new int[tab.length][tab.length];//cria uma matriz nova vazia com o mesmo tamanho da matriz original
         for (int i = 0; i < tab.length; i++) {
             for (int j = 0; j < tab.length; j++) {
-                copia[i][j] = tab[i][j];
+                copia[i][j] = tab[i][j];//copia o valor da matriz original para a nova matriz
             }
         }
         return copia;
@@ -64,12 +70,13 @@ public class ResolverSozinho {
 
         int tamanho = inicial.length;
 
-        // fila de prioridade = sempre entrega o nó de menor f
+        // fila de prioridade = sempre entrega o nó de menor f(g + h)
         PriorityQueue<No> abertos = new PriorityQueue<>((a, b) -> a.f() - b.f());
 
         // tabuleiros já explorados (guardados como texto)
         HashSet<String> visitados = new HashSet<>();
 
+        //coloca o no inicial na fila de abertos, com g=0, sem pai e sem movimento
         abertos.add(new No(copiar(inicial), 0, null, ' '));
 
         // laço principal
