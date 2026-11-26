@@ -4,14 +4,14 @@ public class MovimentosRecorde {
     public static int carregarRecorde(){
         String textoMov = SaveGameManager.lerDoArquivo(ARQUIVO);
         
-        if(textoMov == null || textoMov.trim().isEmpty()) return -1;
+        if(textoMov == null || textoMov.trim().isEmpty()) return 0;
 
         return Integer.parseInt(textoMov.trim());
     }
 
     public static boolean salvarRecorde(int movimentos){
         int movimentosRecorde = carregarRecorde();
-        if(movimentosRecorde == -1 || movimentos < movimentosRecorde){
+        if(movimentosRecorde == 0 || movimentos < movimentosRecorde){
            SaveGameManager.escreverNoArquivo(ARQUIVO, String.valueOf(movimentos));
            return true;
         }

@@ -4,14 +4,14 @@ public class Recorde {
     public static double carregarRecorde(){
         String texto = SaveGameManager.lerDoArquivo(ARQUIVO);
         
-        if(texto == null || texto.trim().isEmpty()) return -1;
+        if(texto == null || texto.trim().isEmpty()) return 0;
 
         return Double.parseDouble(texto.trim());
     }
 
     public static boolean salvarRecorde(double segundos){
         double recordeAtual = carregarRecorde();
-        if(recordeAtual == -1 || segundos < recordeAtual){
+        if(recordeAtual == 0 || segundos < recordeAtual){
            SaveGameManager.escreverNoArquivo(ARQUIVO, String.valueOf(segundos));
            return true;
         }

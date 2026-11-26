@@ -48,7 +48,8 @@ public class KeboardManager{
 
     public static int movimentos = 0;
 
-    //le a tecla precionada, move a pessa da posiçao correspondente e devolve o tabuleiro atualizado
+    public static boolean voltarAoMenu = false;
+
     public static int[][] MoverPeca(int[][] tabuleiro) {
 
         
@@ -72,6 +73,7 @@ public class KeboardManager{
         int moverLinha = linhaVazia;
         int moverColuna = colunaVazia;
 
+        //le a tecla precionada, move a pessa da posiçao correspondente e devolve o tabuleiro atualizado
         char tecla = (char)obtemTeclaPressionada();//chama o metodo q devolve om codigo(int) da tecla precionada, e o char converte esse codigo
         limparConsole();
         SoundManager.tocarSom("Sons/mover.wav", false);
@@ -106,12 +108,14 @@ public class KeboardManager{
 
                 SaveGameManager.escreverNoArquivo(Nome_Arquivo, dadosParaSalvar);
         }
+
         limparConsole();
         Menu.mudarCor(Menu.AMARELO);
         System.out.println(AsciiArt.msgAdeus);
         Menu.mudarCor(Menu.COR_PADRAO);
         SoundManager.tocarSom("Sons/esc.wav", true);
-        System.exit(0);
+        voltarAoMenu = true;   
+        return tabuleiro;
         }
 
         //valida a posiçao de troca, so é realizada se a posiçao do alvo estiver dentro do tabuleiro
@@ -134,7 +138,7 @@ public class KeboardManager{
             
             if(recordeTempo){
                 Menu.mudarCor(Menu.VERDE);
-                System.out.println("\n\n\n\\n\n\n\t\tNovo recorde! Tempo: " + tempo + " segundos\n");
+                System.out.println("\n\n\n\n\n\n\t\tNovo recorde! Tempo: " + tempo + " segundos\n");
                 Menu.mudarCor(Menu.COR_PADRAO);
             } else {
                 System.out.println("\n\n\n\n\n\n\t\tTempo: " + tempo + " segundos\n");
