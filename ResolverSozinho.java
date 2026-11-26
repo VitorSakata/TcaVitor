@@ -1,194 +1,34 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.PriorityQueue;
-
 public class ResolverSozinho {
 
-    static class No {
-        int[][] tabuleiro;  // como o tabuleiro está
-        int g;              // movimentos feitos desde o início
-        int h;              // estimativa do que falta (Manhattan)
-        No pai;             // de qual tabuleiro viemos
-        char movimento;     // para onde o vazio andou para chegar aqui (W, S, A, D)
+    public static int[] dLinha  = {-1, 1, 0, 0};
+    public static int[] dColuna = {0, 0, -1, 1};
+    public static int[] oposto  = {1, 0, 3, 2}; 
+    public static String[] nomes = {"vazio para CIMA", "vazio para BAIXO", "vazio para a ESQUERDA", "vazio para a DIREITA"};
 
-        No(int[][] tabuleiro, int g, No pai, char movimento){
-            this.tabuleiro = tabuleiro;
-            this.g = g;
-            this.h = manhattan(tabuleiro);
-            this.pai = pai;
-            this.movimento = movimento;
-        }
+    public static int[] jogadas = new int[500];
+    public static int totalJogadas = 0;
 
-        int f() {
-            return g + h;
-        }
-    }
-
-    // As 4 direções do vazio: cima, baixo, esquerda, direita
-    static int[] dLinha  = {-1, 1, 0, 0};
-    static int[] dColuna = {0, 0, -1, 1};
-    static char[] tecla  = {'W', 'S', 'A', 'D'};
-
-    // Soma, para cada peça, quantas casas ela está longe do lugar certo.
-    static int manhattan(int[][] tab) {
+    public static int manhattan(int[][] tab) {
         int tamanho = tab.length;
         int soma = 0;
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
                 int valor = tab[i][j];
-                if (valor == 0) continue;                // o vazio não conta
-
-                int linhaCerta  = (valor - 1) / tamanho;  // onde o número deveria estar
-                int colunaCerta = (valor - 1) % tamanho;
-
-                soma += Math.abs(i - linhaCerta) + Math.abs(j - colunaCerta);
+                if (valor != 0) {
+                    int linhaCerta  = (valor - 1) / tamanho;
+                    int colunaCerta = (valor - 1) % tamanho;
+                    soma = soma + Math.abs(i - linhaCerta) + Math.abs(j - colunaCerta);
+                }
             }
         }
         return soma;
     }
 
-    // Copia a matriz (cada vizinho precisa ser um tabuleiro separado).
-    static int[][] copiar(int[][] tab) {
-        int[][] copia = new int[tab.length][tab.length];
-        for (int i = 0; i < tab.length; i++) {
-            for (int j = 0; j < tab.length; j++) {
-                copia[i][j] = tab[i][j];
-            }
-        }
-        return copia;
-    }
-
-    // Devolve as teclas que resolvem o tabuleiro
-    // ou null se não encontrar solução.
-    public static String resolver(int[][] inicial) {
-
-        int tamanho = inicial.length;
-
-        // fila de prioridade = sempre entrega o nó de menor f
-        PriorityQueue<No> abertos = new PriorityQueue<>((a, b) -> a.f() - b.f());
-
-        // tabuleiros já explorados (guardados como texto)
-        HashSet<String> visitados = new HashSet<>();
-
-        abertos.add(new No(copiar(inicial), 0, null, ' '));
-
-        // laço principal
-        while (!abertos.isEmpty()) {
-
-            No atual = abertos.poll();                // pega o de menor f
-
-            if (atual.h == 0) {                       //resolvido?
-                return montarCaminho(atual);          
-            }
-
-            String chave = Arrays.deepToString(atual.tabuleiro);
-            if (visitados.contains(chave)) {          //já vi esse? pula
-                continue;
-            }
-            visitados.add(chave);
-
-            // acha onde está o vazio
-            int linhaVazia = 0, colunaVazia = 0;
-            for (int i = 0; i < tamanho; i++) {
-                for (int j = 0; j < tamanho; j++) {
-                    if (atual.tabuleiro[i][j] == 0) {
-                        linhaVazia = i;
-                        colunaVazia = j;
-                    }
-                }
-            }
-
-            //  gera os vizinhos
-            for (int d = 0; d < 4; d++) {
-                int novaLinha  = linhaVazia  + dLinha[d];
-                int novaColuna = colunaVazia + dColuna[d];
-
-                if (novaLinha >= 0 && novaLinha < tamanho &&
-                    novaColuna >= 0 && novaColuna < tamanho) {
-
-                    int[][] vizinho = copiar(atual.tabuleiro);   // não mexe no original
-                    vizinho[linhaVazia][colunaVazia] = vizinho[novaLinha][novaColuna];
-                    vizinho[novaLinha][novaColuna] = 0;
-
-                    if (!visitados.contains(Arrays.deepToString(vizinho))) {
-                        abertos.add(new No(vizinho, atual.g + 1, atual, tecla[d]));
-                    }
-                }
-            }
-        }
-
-        return null; // não tem solução
-    }
-
-    // volta de pai em pai juntando os movimentos
-    static String montarCaminho(No fim) {
-        String caminho = "";
-        No n = fim;
-        while (n.pai != null) {
-            caminho = n.movimento + caminho;  // coloca na frente: estamos voltando
-            n = n.pai;
-        }
-        return caminho;
-    }
-
-    // Imprime o tabuleiro (o vazio aparece como espaço).
-    static void imprimir(int[][] mat) {
-
-        int linhas, colunas;
-        linhas = mat.length;
-        colunas = mat[0].length;
-        int largura = 6;
-
-        
-
-        Menu.mudarCor(Menu.AMARELO);
-        TabuleiroManager.imprimirLinhaSeparadora(colunas, largura, "╔", "╦", "╗");
-        Menu.mudarCor(Menu.AMARELO);
-
-        for(int i = 0; i < linhas; i++){
-            Menu.mudarCor(Menu.AMARELO);
-            System.out.printf("\t\t║");
-            Menu.mudarCor(Menu.COR_PADRAO);
-            for(int j = 0; j < colunas; j++){
-
-                if(mat[i][j] == 0){
-                    System.out.print(" ".repeat(largura));
-                    
-                }else{
-                    System.out.printf("%" + (largura - 1) + "d ", mat[i][j]);
-                    
-                }
-                Menu.mudarCor(Menu.AMARELO);
-                System.out.print("║");
-                Menu.mudarCor(Menu.COR_PADRAO);
-            }
-            System.out.println();
-
-            if(i < linhas - 1){
-                Menu.mudarCor(Menu.AMARELO);
-                TabuleiroManager.imprimirLinhaSeparadora(colunas, largura, "╠", "╬", "╣");
-                Menu.mudarCor(Menu.COR_PADRAO);
-            }
-
-        }
-
-        Menu.mudarCor(Menu.AMARELO);
-        TabuleiroManager.imprimirLinhaSeparadora(colunas, largura, "╚", "╩", "╝");
-        Menu.mudarCor(Menu.COR_PADRAO);
-    }
-
-    // Traduz a letra para um texto que dá para usar no metodo resolverEMostrar.
-    static String nomeDoMovimento(char letra) {
-        if (letra == 'W') return "vazio para CIMA";
-        if (letra == 'S') return "vazio para BAIXO";
-        if (letra == 'A') return "vazio para a ESQUERDA";
-        return "vazio para a DIREITA";
-    }
-
-    static void moverVazio(int[][] tab, char letra) {
+    public static int[][] mover(int[][] tab, int d) {
         int tamanho = tab.length;
 
-        int linhaVazia = 0, colunaVazia = 0;
+        int linhaVazia = 0;
+        int colunaVazia = 0;
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
                 if (tab[i][j] == 0) {
@@ -198,51 +38,118 @@ public class ResolverSozinho {
             }
         }
 
-        int d = 0;
-        for (int k = 0; k < 4; k++) {
-            if (tecla[k] == letra) d = k;
-        }
-
         int novaLinha  = linhaVazia  + dLinha[d];
         int novaColuna = colunaVazia + dColuna[d];
 
-        tab[linhaVazia][colunaVazia] = tab[novaLinha][novaColuna];
-        tab[novaLinha][novaColuna] = 0;
+        if (novaLinha < 0 || novaLinha >= tamanho || novaColuna < 0 || novaColuna >= tamanho) {
+            return null;
+        }
+
+        int[][] novo = new int[tamanho][tamanho];
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+                novo[i][j] = tab[i][j];
+            }
+        }
+
+        novo[linhaVazia][colunaVazia] = novo[novaLinha][novaColuna];
+        novo[novaLinha][novaColuna] = 0;
+        return novo;
+    }
+
+    public static boolean buscar(int[][] tab, int feitas, int limite, int ultima) {
+
+        int falta = manhattan(tab);
+
+        if (falta == 0) {
+            totalJogadas = feitas;
+            return true;
+        }
+        if (feitas + falta > limite) {
+            return false;
+        }
+        for (int d = 0; d < 4; d++) {
+
+            if (ultima != -1 && d == oposto[ultima]) {
+                continue;
+            }
+
+            int[][] novo = mover(tab, d);
+
+            if (novo != null) {
+                jogadas[feitas] = d;  
+
+                if (buscar(novo, feitas + 1, limite, d)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static void resolver(int[][] tab) {
+        int limite = manhattan(tab);
+        while (buscar(tab, 0, limite, -1) == false) {
+            limite++;
+        }
+    }
+
+    public static void imprimir(int[][] mat) {
+        int tamanho = mat.length;
+        int largura = 6;
+
+        Menu.mudarCor(Menu.AMARELO);
+        TabuleiroManager.imprimirLinhaSeparadora(tamanho, largura, "╔", "╦", "╗");
+
+        for (int i = 0; i < tamanho; i++) {
+            System.out.print("\t\t║");
+            for (int j = 0; j < tamanho; j++) {
+                Menu.mudarCor(Menu.COR_PADRAO);
+                if (mat[i][j] == 0) {
+                    System.out.print(" ".repeat(largura));
+                } else {
+                    System.out.printf("%" + (largura - 1) + "d ", mat[i][j]);
+                }
+                Menu.mudarCor(Menu.AMARELO);
+                System.out.print("║");
+            }
+            System.out.println();
+
+            if (i < tamanho - 1) {
+                TabuleiroManager.imprimirLinhaSeparadora(tamanho, largura, "╠", "╬", "╣");
+            }
+        }
+
+        TabuleiroManager.imprimirLinhaSeparadora(tamanho, largura, "╚", "╩", "╝");
+        Menu.mudarCor(Menu.COR_PADRAO);
     }
 
     public static void resolverEMostrar(int[][] tabuleiro, int esperaMs) {
 
         KeboardManager.limparConsole();
-
         System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
-
         System.out.println("\t\tTabuleiro inicial:\n");
         imprimir(tabuleiro);
 
-        String caminho = resolver(tabuleiro);
+        resolver(tabuleiro);
 
-        if (caminho == null) {
-            System.out.println("Este tabuleiro não tem solução.");
-            return;
-        }
-
-        if (caminho.length() == 0) {
+        if (totalJogadas == 0) {
             System.out.println("O tabuleiro já está resolvido!");
             return;
         }
 
-        int[][] tab = copiar(tabuleiro);
+        int[][] tab = tabuleiro;
 
-        for (int passo = 0; passo < caminho.length(); passo++) {
+        for (int i = 0; i < totalJogadas; i++) {
+            int d = jogadas[i];
+            tab = mover(tab, d);
+
             KeboardManager.limparConsole();
             SoundManager.tocarSom("Sons/mover.wav", false);
-            
-            char letra = caminho.charAt(passo);
-            moverVazio(tab, letra);
 
             System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
-
-            System.out.println("\t\tJogada perfeita " + (passo + 1) + " de " + caminho.length() + ": " + nomeDoMovimento(letra) + "\n");
+            System.out.println("\t\tJogada perfeita " + (i + 1) + " de " + totalJogadas + ": " + nomes[d] + "\n");
             imprimir(tab);
 
             try {
@@ -251,7 +158,6 @@ public class ResolverSozinho {
             }
         }
 
-        System.out.println("Resolvido em " + caminho.length() + " jogadas!");
+        System.out.println("Resolvido em " + totalJogadas + " jogadas!");
     }
-
 }
