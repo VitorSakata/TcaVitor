@@ -92,8 +92,8 @@ public class KeboardManager{
                 colunaAtual--;
                 break;
             case 27:
-    
-            TabuleiroManager.SalvarJogo(tabuleiro);
+                TabuleiroManager.SalvarJogo(tabuleiro);
+                break;  
         }
 
         if((linhaAtual != linhaVazia || colunaAtual != colunaVazia) && 
