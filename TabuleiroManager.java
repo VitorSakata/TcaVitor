@@ -20,75 +20,6 @@ public class TabuleiroManager {
         return mat;
     }
 
-    public static void jogar(){
-
-        int[][] tabuleiro = criarMatrizInteira(Menu.tamanho);
-        KeboardManager.movimentos = 0;
-        embaralharTabuleiroInteiro(tabuleiro, Menu.embaralhamentos);
-        iniciarCronometro();
-        imprimirMatrizInteiro(tabuleiro);
-        KeboardManager.voltarAoMenu = false;
-        while (verificarVitoria(tabuleiro) == false && KeboardManager.voltarAoMenu == false) {
-            tabuleiro = KeboardManager.MoverPeca(tabuleiro);
-        }
-    }
-
-    public static void carregarJogo(){
-
-        String texto = (SaveGameManager.lerDoArquivo("savegame.txt"));
-        if(texto == null || texto.trim().isEmpty()){
-            return;
-        }
-        int[][] tabuleiro = textoParaTabuleiro(texto);
-        iniciarCronometro();
-        inicioCronometro -= (long)(tempoSalvo * 1000);
-        imprimirMatrizInteiro(tabuleiro);
-        KeboardManager.voltarAoMenu = false;
-        while (verificarVitoria(tabuleiro) == false && KeboardManager.voltarAoMenu == false) {
-            tabuleiro = KeboardManager.MoverPeca(tabuleiro);
-        }
-    }
-
-    //transforma o tabuleiro em texto para salvar no arquivo
-    public static String tabuleiroParaTexto(int[][] tabuleiro){
-
-        String texto = KeboardManager.movimentos + "\n" + segundosPassados() + "\n"; 
-
-        for(int i = 0; i < tabuleiro.length; i++){
-            for(int j = 0; j < tabuleiro[0].length; j++){
-                texto += tabuleiro[i][j];
-                if(j < tabuleiro[0].length - 1){
-                    texto += " ";
-                }
-            }
-            texto += "\n";
-        }
-
-        return texto;
-    }
-
-    //transforma o texto do arquivo de volta em tabuleiro
-    public static int[][] textoParaTabuleiro(String texto){
-
-        String[] linhas = texto.trim().split("\n");
-
-        KeboardManager.movimentos = Integer.parseInt(linhas[0].trim());
-        tempoSalvo = Double.parseDouble(linhas[1].trim());
-
-        int tamanho = linhas.length - 2;
-        int[][] tabuleiro = new int[tamanho][tamanho];
-
-        for(int i = 0; i < tamanho; i++){
-            String[] numeros = linhas[i + 2].trim().split(" ");
-
-            for(int j = 0; j < tamanho; j++){
-                tabuleiro[i][j] = Integer.parseInt(numeros[j]);
-            }
-        }
-
-        return tabuleiro;
-    }
-
     public static void imprimirLinhaSeparadora(int colunas, int largura, String esquerda, String meio, String direita) {
         System.out.print("\t\t" + esquerda);
         for (int i = 0; i < colunas; i++) {
@@ -102,7 +33,7 @@ public class TabuleiroManager {
         }
         System.out.println();
     }
-            
+
     //imprime o tabuleiro
     public static void imprimirMatrizInteiro(int[][] mat){
         //Guarda a quantidade de linhas e colunas da matriz, assim a função pode imprimir qualquer tamanho de matriz, não só 4x4;
@@ -170,7 +101,7 @@ public class TabuleiroManager {
         System.out.println("\t\tESC:  Sair do jogo");
     }
 
-        //usa a matriz ja feita e embaralha ela
+    //usa a matriz ja feita e embaralha ela
     public static void embaralharTabuleiroInteiro(int[][] tabuleiro, int movimentos){
         Random random = new Random();
         int tamanho = tabuleiro.length;
@@ -192,7 +123,7 @@ public class TabuleiroManager {
         }
 
         //Esses dois vetores guardam as direções que a peça vazia pode se mover;
-        //cada posição do vetor representa uma direção, [0] = cima, [1] = baixo, [2] = esquerda, [3] = direita;
+        // [0] = cima, [1] = baixo, [2] = esquerda, [3] = direita;
         int direçaoLinha[] = {-1, 1, 0, 0};
         int direçaoColuna[] = {0, 0, -1, 1};
         
@@ -217,27 +148,162 @@ public class TabuleiroManager {
         }
     }
 
-        public static boolean verificarVitoria(int[][] tabuleiro){
-            int tamanho = tabuleiro.length;
-            int valorEsperado = 1;
+    public static void jogar(){
 
-            for (int i = 0; i < tamanho; i++) {
-                for (int j = 0; j < tamanho; j++) {
+        int[][] tabuleiro = criarMatrizInteira(Menu.tamanho);
+        KeboardManager.movimentos = 0;
+        embaralharTabuleiroInteiro(tabuleiro, Menu.embaralhamentos);
+        iniciarCronometro();
+        imprimirMatrizInteiro(tabuleiro);
+        KeboardManager.voltarAoMenu = false;
 
-                    if(i == tamanho -1 && j == tamanho -1){
-                        return tabuleiro[i][j] == 0;
-                    }
+        while (verificarVitoria(tabuleiro) == false && KeboardManager.voltarAoMenu == false) {
+            tabuleiro = KeboardManager.MoverPeca(tabuleiro);
+        }
+    }
 
-                    if(tabuleiro[i][j] != valorEsperado){
-                        return false;
-                    }
-                    
-                    valorEsperado++;
+    public static void carregarJogo(){
+
+        String texto = (SaveGameManager.lerDoArquivo("savegame.txt"));
+        if(texto == null || texto.trim().isEmpty()){
+            return;
+        }else{
+            int[][] tabuleiro = textoParaTabuleiro(texto);
+            iniciarCronometro();
+            imprimirMatrizInteiro(tabuleiro);
+            KeboardManager.voltarAoMenu = false;
+            
+            while (verificarVitoria(tabuleiro) == false && KeboardManager.voltarAoMenu == false) {
+                tabuleiro = KeboardManager.MoverPeca(tabuleiro);
+            }
+        }
+        
+    }
+
+    //transforma o tabuleiro em texto para salvar no arquivo
+    public static String tabuleiroParaTexto(int[][] tabuleiro){
+
+        String texto = KeboardManager.movimentos + "\n" + segundosPassados() + "\n"; 
+
+        for(int i = 0; i < tabuleiro.length; i++){
+            for(int j = 0; j < tabuleiro[0].length; j++){
+                texto += tabuleiro[i][j];
+                if(j < tabuleiro[0].length - 1){
+                    texto += " ";
                 }
             }
-            return true;
-        
+            texto += "\n";
         }
+
+        return texto;
+    }
+
+    //transforma o texto do arquivo de volta em tabuleiro
+    public static int[][] textoParaTabuleiro(String texto){
+
+        String[] linhas = texto.trim().split("\n");
+
+        KeboardManager.movimentos = Integer.parseInt(linhas[0].trim());
+        tempoSalvo = Double.parseDouble(linhas[1].trim());
+
+        int tamanho = linhas.length - 2;
+        int[][] tabuleiro = new int[tamanho][tamanho];
+
+        for(int i = 0; i < tamanho; i++){
+            String[] numeros = linhas[i + 2].trim().split(" ");
+
+            for(int j = 0; j < tamanho; j++){
+                tabuleiro[i][j] = Integer.parseInt(numeros[j]);
+            }
+        }
+
+        return tabuleiro;
+    }
+
+    public static void SalvarJogo(int[][] tabuleiro){
+
+        String Nome_Arquivo = "savegame.txt";
+        String dadosParaSalvar = (TabuleiroManager.tabuleiroParaTexto(tabuleiro));
+
+        System.out.println("Deseja salvar seu progresso? (S/Esc)");
+
+        switch((char)KeboardManager.obtemTeclaPressionada()){
+            case 's':
+            case 'S':
+
+            SaveGameManager.escreverNoArquivo(Nome_Arquivo, dadosParaSalvar);
+        }
+
+        KeboardManager.limparConsole();
+        Menu.mudarCor(Menu.AMARELO);
+        System.out.println(AsciiArt.msgAdeus);
+        Menu.mudarCor(Menu.COR_PADRAO);
+        SoundManager.tocarSom("Sons/esc.wav", true);
+        KeboardManager.voltarAoMenu = true;   
+
+        return ;
+    }
+
+    public static void VerificarRecorde(int[][] tabuleiro){
+        if(TabuleiroManager.verificarVitoria(tabuleiro) == true){
+            
+            double tempo = TabuleiroManager.segundosPassados();
+            boolean recordeTempo = Recorde.salvarRecorde(tempo);
+
+            boolean recordeMovimentos = MovimentosRecorde.salvarRecorde(KeboardManager.movimentos);
+            
+            if(recordeTempo){
+                Menu.mudarCor(Menu.VERDE);
+                System.out.println("\n\n\n\n\n\n\t\tNovo recorde! Tempo: " + tempo + " segundos\n");
+                Menu.mudarCor(Menu.COR_PADRAO);
+            } else {
+                System.out.println("\n\n\n\n\n\n\t\tTempo: " + tempo + " segundos\n");
+            }
+
+            if(recordeMovimentos){
+                Menu.mudarCor(Menu.VERDE);
+                System.out.println("\t\tNovo recorde! Movimentos: " + KeboardManager.movimentos);
+                Menu.mudarCor(Menu.COR_PADRAO);
+            } else {
+                System.out.println("\t\tMovimentos:" + KeboardManager.movimentos);
+            }
+
+            if(Menu.embaralhamentos == 300 && Menu.tamanho == 5){
+                System.out.println(AsciiArt.msgVitoria2);
+                SoundManager.tocarSom("Sons/vitoria.wav", true);
+            }else{
+                Menu.mudarCor(Menu.AMARELO);
+                System.out.println(AsciiArt.msgVitoria1);
+                Menu.mudarCor(Menu.COR_PADRAO);
+                SoundManager.tocarSom("Sons/vitoria.wav", true);
+            }
+
+            
+        }
+
+        return;
+    }
+    
+    public static boolean verificarVitoria(int[][] tabuleiro){
+        int tamanho = tabuleiro.length;
+        int valorEsperado = 1;
+
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+
+                if(i == tamanho -1 && j == tamanho -1){
+                    return tabuleiro[i][j] == 0;
+                }
+
+                if(tabuleiro[i][j] != valorEsperado){
+                        return false;
+                }
+                    
+                valorEsperado++;
+            }
+        }
+        return true;
+    }
 
     // Disponibilizado pelo professor
     // Guarda o momento em que o cronômetro começou (em milissegundos)
