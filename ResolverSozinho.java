@@ -80,16 +80,17 @@ public class ResolverSozinho {
         abertos.add(new No(copiar(inicial), 0, null, ' '));
 
         // laço principal
+        //Repete enquanto houver nós para explorar. Se a fila esvaziar, não há solução.
         while (!abertos.isEmpty()) {
 
-            No atual = abertos.poll();                // pega o de menor f
+            No atual = abertos.poll();                // pega o no de menor f
 
-            if (atual.h == 0) {                       //resolvido?
+            if (atual.h == 0) {                       //resolvido? Se estiver, monta o caminho de volta e devolve
                 return montarCaminho(atual);          
             }
 
-            String chave = Arrays.deepToString(atual.tabuleiro);
-            if (visitados.contains(chave)) {          //já vi esse? pula
+            String chave = Arrays.deepToString(atual.tabuleiro);//converte o tabuleiro atual em texto, serve de identidade do estado
+            if (visitados.contains(chave)) {          //já viu esse estado? Se sim, pula. Se não, marca como visitado e continua.
                 continue;
             }
             visitados.add(chave);
@@ -107,16 +108,19 @@ public class ResolverSozinho {
 
             //  gera os vizinhos
             for (int d = 0; d < 4; d++) {
+                //calcula para onde o vazio se moveria
                 int novaLinha  = linhaVazia  + dLinha[d];
                 int novaColuna = colunaVazia + dColuna[d];
 
+                //verifica se a nova posição está dentro do tabuleiro. Se sim, cria o vizinho e adiciona na fila de abertos.
                 if (novaLinha >= 0 && novaLinha < tamanho &&
                     novaColuna >= 0 && novaColuna < tamanho) {
 
-                    int[][] vizinho = copiar(atual.tabuleiro);   // não mexe no original
-                    vizinho[linhaVazia][colunaVazia] = vizinho[novaLinha][novaColuna];
-                    vizinho[novaLinha][novaColuna] = 0;
+                    int[][] vizinho = copiar(atual.tabuleiro);   //cria uma copia e não mexe no original
+                    vizinho[linhaVazia][colunaVazia] = vizinho[novaLinha][novaColuna];//move a peça para o lugar do vazio
+                    vizinho[novaLinha][novaColuna] = 0;//coloca o vazio no lugar da peça
 
+                    //se o vizinho n ainfa foi visitado entra na fila g = atual.g + 1 (mais um movimento),pai = atual, movimento = tecla[d] (a tecla usada).
                     if (!visitados.contains(Arrays.deepToString(vizinho))) {
                         abertos.add(new No(vizinho, atual.g + 1, atual, tecla[d]));
                     }
@@ -124,10 +128,12 @@ public class ResolverSozinho {
             }
         }
 
+        //Só chega aqui se a fila esvaziou sem achar solução. Isso acontece em tabuleiros de paridade impossível.
         return null; // não tem solução
     }
 
     // volta de pai em pai juntando os movimentos
+    //a cada passo, coloca a tecla na frente da string. Como estamos andando de trás para frente, isso deixa as teclas na ordem certa.
     static String montarCaminho(No fim) {
         String caminho = "";
         No n = fim;
@@ -139,12 +145,14 @@ public class ResolverSozinho {
     }
 
     // Imprime o tabuleiro (o vazio aparece como espaço).
+    // //Pega as dimensões e define a largura de cada célula (6 caracteres).
     static void imprimir(int[][] mat) {
 
         int linhas, colunas;
         linhas = mat.length;
         colunas = mat[0].length;
         int largura = 6;
+        
 
         
 
@@ -156,12 +164,14 @@ public class ResolverSozinho {
             Menu.mudarCor(Menu.AMARELO);
             System.out.printf("\t\t║");
             Menu.mudarCor(Menu.COR_PADRAO);
+
+            // Para cada célula:
             for(int j = 0; j < colunas; j++){
 
-                if(mat[i][j] == 0){
+                if(mat[i][j] == 0){// se for o vazio, imprime 6 espaços;
                     System.out.print(" ".repeat(largura));
                     
-                }else{
+                }else{// senão, imprime o número alinhado à direita em 5 colunas, mais 1 espaço (total 6). O formato vira "%5d "
                     System.out.printf("%" + (largura - 1) + "d ", mat[i][j]);
                     
                 }
@@ -185,6 +195,7 @@ public class ResolverSozinho {
     }
 
     // Traduz a letra para um texto que dá para usar no metodo resolverEMostrar.
+    // Se não for W, S nem A, assume D.
     static String nomeDoMovimento(char letra) {
         if (letra == 'W') return "vazio para CIMA";
         if (letra == 'S') return "vazio para BAIXO";
@@ -205,7 +216,7 @@ public class ResolverSozinho {
             }
         }
 
-        int d = 0;
+        int d = 0;//o índice da direção escolhida. Começa em 0
         for (int k = 0; k < 4; k++) {
             if (tecla[k] == letra) d = k;
         }
