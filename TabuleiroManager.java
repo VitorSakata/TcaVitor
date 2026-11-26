@@ -43,8 +43,8 @@ public class TabuleiroManager {
         colunas = mat[0].length;
         int largura = 6;
         
-        double tempoRecorde = Recorde.carregarRecorde();
-        int movimentosRecorde = MovimentosRecorde.carregarRecorde();
+        double tempoRecorde = Recordes.carregarRecordeTempo();
+        int movimentosRecorde = Recordes.carregarRecordeMovimentos();
 
         System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
         
@@ -252,9 +252,9 @@ public class TabuleiroManager {
         if(TabuleiroManager.verificarVitoria(tabuleiro) == true){
             
             double tempo = TabuleiroManager.segundosPassados();
-            boolean recordeTempo = Recorde.salvarRecorde(tempo);
+            boolean recordeTempo = Recordes.salvarRecorde(tempo);
 
-            boolean recordeMovimentos = MovimentosRecorde.salvarRecorde(KeboardManager.movimentos);
+            boolean recordeMovimentos = Recordes.salvarRecorde(KeboardManager.movimentos);
             
             if(recordeTempo){
                 Menu.mudarCor(Menu.VERDE);
