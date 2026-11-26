@@ -96,7 +96,8 @@ public class KeboardManager{
             TabuleiroManager.SalvarJogo(tabuleiro);
         }
 
-        if(linhaAtual >= 0 && linhaAtual < tabuleiro.length &&
+        if((linhaAtual != linhaVazia || colunaAtual != colunaVazia) && 
+            linhaAtual >= 0 && linhaAtual < tabuleiro.length &&
             colunaAtual >= 0 && colunaAtual < tabuleiro[0].length){
 
             tabuleiro[linhaVazia][colunaVazia] = tabuleiro[linhaAtual][colunaAtual];

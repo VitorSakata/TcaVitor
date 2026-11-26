@@ -17,7 +17,7 @@ public class ResolverSozinho {
                 if (valor != 0) {
                     int linhaCerta  = (valor - 1) / tamanho;
                     int colunaCerta = (valor - 1) % tamanho;
-                    soma = soma + Math.abs(i - linhaCerta) + Math.abs(j - colunaCerta);
+                    soma += Math.abs(i - linhaCerta) + Math.abs(j - colunaCerta);
                 }
             }
         }
