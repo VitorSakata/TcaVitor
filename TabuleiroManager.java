@@ -20,10 +20,11 @@ public class TabuleiroManager {
         return mat;
     }
 
+    //imprime uma linha horizontal de moldura de tabela,ele serve para desenhar o topo, as divisórias e a base do tabuleiro no console.
     public static void imprimirLinhaSeparadora(int colunas, int largura, String esquerda, String meio, String direita) {
         System.out.print("\t\t" + esquerda);
         for (int i = 0; i < colunas; i++) {
-            System.out.print("═".repeat(largura));
+            System.out.print("═".repeat(largura));//repete a string n vezes. Com largura = 3, imprime ═══.
             if (i < colunas - 1) {
                 System.out.print(meio);
             }else{
@@ -148,6 +149,8 @@ public class TabuleiroManager {
         }
     }
 
+    //ponto de partida de uma partida
+    //monta o tabuleiro, embaralha, e repete a leitura de movimentos até o jogador ganhar ou voltar ao menu.
     public static void jogar(){
 
         int[][] tabuleiro = criarMatrizInteira(Menu.tamanho);
@@ -164,11 +167,11 @@ public class TabuleiroManager {
 
     public static void carregarJogo(){
 
-        String texto = (SaveGameManager.lerDoArquivo("savegame.txt"));
-        if(texto == null || texto.trim().isEmpty()){
+        String texto = (SaveGameManager.lerDoArquivo("savegame.txt"));//Chama o método que lê o arquivo savegame.txt e guarda o conteúdo na variável texto
+        if(texto == null || texto.trim().isEmpty()){//trim() remove espaços do começo e do fim antes de testar.
             return;
         }else{
-            int[][] tabuleiro = textoParaTabuleiro(texto);
+            int[][] tabuleiro = textoParaTabuleiro(texto);//converte o texto numa matriz de inteiros e guarda em tabuleiro
             iniciarCronometro();
             imprimirMatrizInteiro(tabuleiro);
             KeboardManager.voltarAoMenu = false;
@@ -203,17 +206,18 @@ public class TabuleiroManager {
 
         String[] linhas = texto.trim().split("\n");
 
-        KeboardManager.movimentos = Integer.parseInt(linhas[0].trim());
-        tempoSalvo = Double.parseDouble(linhas[1].trim());
+        KeboardManager.movimentos = Integer.parseInt(linhas[0].trim());//pega a primeira linha, remove espaços e e converte de texto para int
+        tempoSalvo = Double.parseDouble(linhas[1].trim());//pega a segunda linha, remove os espaços e convertr para double
 
-        int tamanho = linhas.length - 2;
+        int tamanho = linhas.length - 2;//o número de linhas restantes é o tamanho. Num 3x3, linhas.length é 5, e 5 - 2 = 3.
         int[][] tabuleiro = new int[tamanho][tamanho];
 
         for(int i = 0; i < tamanho; i++){
-            String[] numeros = linhas[i + 2].trim().split(" ");
+            String[] numeros = linhas[i + 2].trim().split(" ");//o número de linhas restantes é o tamanho. Num 3x3, linhas.length é 5, e 5 - 2 = 3.
+                                                               //Para i = 0, pega linhas[2], a primeira linha do tabuleiro.
 
             for(int j = 0; j < tamanho; j++){
-                tabuleiro[i][j] = Integer.parseInt(numeros[j]);
+                tabuleiro[i][j] = Integer.parseInt(numeros[j]);//converte o texto numeros[j] em int e guarda na posição (i, j).
             }
         }
 
@@ -223,7 +227,7 @@ public class TabuleiroManager {
     public static void SalvarJogo(int[][] tabuleiro){
 
         String Nome_Arquivo = "savegame.txt";
-        String dadosParaSalvar = (TabuleiroManager.tabuleiroParaTexto(tabuleiro));
+        String dadosParaSalvar = (TabuleiroManager.tabuleiroParaTexto(tabuleiro));//converte o tabuleiro para texto
 
         System.out.println("Deseja salvar seu progresso? (S/Esc)");
 
