@@ -56,8 +56,9 @@ public class KeboardManager{
         int linhaVazia = 0;
         int colunaVazia = 0;
 
-        for(int i = 0; i < tabuleiro.length; i++){
-            for(int j = 0; j < tabuleiro[0].length; j++){
+        //percorre o tabuleiro para encontrar a posição vazia
+        for(int i = 0; i < tabuleiro.length; i++){//for q percorre as linhas
+            for(int j = 0; j < tabuleiro[0].length; j++){//for q percorre as colunas
                 if(tabuleiro[i][j] == 0){
                     linhaVazia = i;
                     colunaVazia = j;
@@ -68,7 +69,8 @@ public class KeboardManager{
         int linhaAtual = linhaVazia;
         int colunaAtual = colunaVazia;
 
-        char tecla = (char)obtemTeclaPressionada();
+        //le a tecla precionada, move a pessa da posiçao correspondente e devolve o tabuleiro atualizado
+        char tecla = (char)obtemTeclaPressionada();//chama o metodo q devolve om codigo(int) da tecla precionada, e o char converte esse codigo
         limparConsole();
         SoundManager.tocarSom("Sons/mover.wav", false);
 
@@ -100,7 +102,7 @@ public class KeboardManager{
             tabuleiro[linhaVazia][colunaVazia] = tabuleiro[linhaAtual][colunaAtual];
             tabuleiro[linhaAtual][colunaAtual] = 0;
             movimentos++;
-        }
+        } 
 
         TabuleiroManager.VerificarRecorde(tabuleiro);
 
